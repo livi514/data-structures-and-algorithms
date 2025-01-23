@@ -1,1 +1,7 @@
 Important things to consider:
+
+- How to implement different priority levels 
+- What will priority be based on?
+    - e.g. the amount of time people have been waiting for?
+    - is there anything else we should consider?
+    - it would be inefficient to JUST go off based on priorities and dart all over the place 
