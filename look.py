@@ -13,10 +13,10 @@ TOP_FLOOR = number_of_floors
 BOTTOM_FLOOR = 0
 
 #will be updated to true later on
-top_floor_reached = false
+top_floor_reached = False
 
 #lift will start on the ground floor?
-bottom_floor_reached = true
+bottom_floor_reached = True
 
 #for now, I'm not implementing priorities 
 
@@ -31,5 +31,7 @@ def lift_journey():
   if direction_of_travel == "up":
     #sorting the list in ascending order
     request_list.sort()
+  else:
+    request_list.sort(reverse=True)
 
   
