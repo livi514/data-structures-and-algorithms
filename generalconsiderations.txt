@@ -5,3 +5,5 @@ Important things to consider:
     - e.g. the amount of time people have been waiting for?
     - is there anything else we should consider?
     - it would be inefficient to JUST go off based on priorities and dart all over the place 
+- Capacity
+    - Based on total weight?
