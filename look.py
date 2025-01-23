@@ -27,6 +27,7 @@ request_list = [8, 7, 2, 5, 6]
 
 #here, a lift journey will be either the lift travelling downwards or upwards, when the lift changes direction, this will begin a new "journey"
 def lift_journey():
+  global current_floor, direction_of_travel, request_list
   #for now I haven't implemented different priorities
   #sorting the list in ascending or descending order based on the direction of travel 
   #e.g. if we're going up we'll start with the request with the lowest number
