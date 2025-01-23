@@ -23,7 +23,7 @@ bottom_floor_reached = True
 #for now, I'm not implementing priorities 
 
 #just making up some requests so far - for real time I think we have to let users input them somehow?
-request_list = [10, 7, 2, 5, 6]  
+request_list = [8, 7, 2, 5, 6]  
 
 #here, a lift journey will be either the lift travelling downwards or upwards, when the lift changes direction, this will begin a new "journey"
 def lift_journey():
@@ -40,13 +40,16 @@ def lift_journey():
     floors.append(i)
   for i in floors:
     current_floor = i
+    print("Current floor:" , current_floor)
     if i in request_list:
       request_list.remove(i)
+      print("Request list:", request_list)
     if (current_floor == TOP_FLOOR) or (len(request_list == 0)): #this means we can turn the lift around
       if direction_of_travel == "up":
         direction_of_travel == "down"
       elif direction_of_travel == "down":
         direction_of_travel == "up"
+      print(direction_of_travel)
       break
 
 lift_journey()
