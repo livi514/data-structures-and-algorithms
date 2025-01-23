@@ -33,5 +33,6 @@ def lift_journey():
     request_list.sort()
   else:
     request_list.sort(reverse=True)
+  print(request_list)
 
   
