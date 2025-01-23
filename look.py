@@ -31,8 +31,12 @@ def lift_journey():
   if direction_of_travel == "up":
     #sorting the list in ascending order
     request_list.sort()
-  else:
+  elif direction_of_travel == "down":
     request_list.sort(reverse=True)
-  print(request_list)
+  floors = []
+  for i in range(number_of_floors):
+    floors.append(i)
+  print(floors)
 
-  
+lift_journey()
+
