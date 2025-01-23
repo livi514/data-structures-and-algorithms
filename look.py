@@ -47,6 +47,7 @@ def lift_journey():
         direction_of_travel == "down"
       elif direction_of_travel == "down":
         direction_of_travel == "up"
+      break
 
 lift_journey()
 
