@@ -9,6 +9,8 @@ number_of_floors = 10
 #direction of travel - "up" or "down"
 direction_of_travel = "up"
 
+current_floor = 0
+
 TOP_FLOOR = number_of_floors
 BOTTOM_FLOOR = 0
 
@@ -34,9 +36,17 @@ def lift_journey():
   elif direction_of_travel == "down":
     request_list.sort(reverse=True)
   floors = []
-  for i in range(number_of_floors):
+  for i in range(number_of_floors+1):
     floors.append(i)
-  print(floors)
+  for i in floors:
+    current_floor = i
+    if i in request_list:
+      request_list.remove(i)
+    if (current_floor == TOP_FLOOR) or (len(request_list == 0)): #this means we can turn the lift around
+      if direction_of_travel == "up":
+        direction_of_travel == "down"
+      elif direction_of_travel == "down":
+        direction_of_travel == "up"
 
 lift_journey()
 
