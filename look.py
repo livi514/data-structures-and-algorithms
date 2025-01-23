@@ -37,20 +37,18 @@ def lift_journey():
   elif direction_of_travel == "down":
     request_list.sort(reverse=True)
   floors = list(range(number_of_floors + 1))
-  for i in range(number_of_floors+1):
-    floors.append(i)
   for i in floors:
     current_floor = i
     print("Current floor:" , current_floor)
     if i in request_list:
       request_list.remove(i)
       print("Request list:", request_list)
-    if (current_floor == TOP_FLOOR) or (len(request_list == 0)): #this means we can turn the lift around
+    if (current_floor == TOP_FLOOR) or (current_floor == BOTTOM_FLOOR) or (len(request_list == 0)): #this means we can turn the lift around
       if direction_of_travel == "up":
         direction_of_travel == "down"
       elif direction_of_travel == "down":
         direction_of_travel == "up"
-      print(direction_of_travel)
+      print("Changing direction to", direction_of_travel)
       break
 
 lift_journey()
