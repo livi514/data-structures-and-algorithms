@@ -18,3 +18,7 @@ top_floor_reached = false
 #lift will start on the ground floor?
 bottom_floor_reached = true
 
+#for now, I'm not implementing priorities 
+
+request_list = []
+
