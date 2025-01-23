@@ -20,5 +20,6 @@ bottom_floor_reached = true
 
 #for now, I'm not implementing priorities 
 
+#just making up some requests so far - for real time I think we have to let users input them somehow?
 request_list = []
 
