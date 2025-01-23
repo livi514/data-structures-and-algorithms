@@ -36,7 +36,7 @@ def lift_journey():
     request_list.sort()
   elif direction_of_travel == "down":
     request_list.sort(reverse=True)
-  floors = []
+  floors = list(range(number_of_floors + 1))
   for i in range(number_of_floors+1):
     floors.append(i)
   for i in floors:
