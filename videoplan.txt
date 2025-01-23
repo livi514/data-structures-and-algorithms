@@ -1,0 +1,8 @@
+From the coursework description:
+
+- Clear explanation of project objectives, design choices, implementation
+and results
+- Demonstration of understanding the details of the implementation
+- All group members should participate in the video
+- Video should include a demo of the execution of the implementation
+- Clarity and professionalism
