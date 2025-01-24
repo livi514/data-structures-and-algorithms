@@ -15,17 +15,17 @@ current_floor = 10
 #example requests - we will need to change the way that requests are processed for the real-time version of the algorithm 
 request_list = [6, 2, 8, 7, 5]
 
-'''
+
 while len(request_list) != 0:
   if direction_of_travel == "up":
     requests_sorted = sorted([request for request in request_list if request >= current_floor])
-  else: #direction_of_travel == "down"
+  else: #direction_of_travel = "down"
     requests_sorted = sorted([request for request in request_list if request <= current_floor], reverse=True)
   if len(requests_sorted) == 0:
     if direction_of_travel == "down":
-      direction_of_travel == "up"
+      direction_of_travel = "up" # "==" is mainly used comparing so this should be "="
     else: #direction_of_travel == "up"
-      direction_of_travel == "down"
+      direction_of_travel = "down" 
     print("Changing direction to", direction_of_travel)
   
   for floor in requests_sorted:
@@ -42,7 +42,7 @@ while len(request_list) != 0:
     if not any (requests < current_floor for requests in request_list):
       direction_of_travel == "up"
   print("Changing direction to", direction_of_travel)
-'''
+
 
 #trying something - let's hope this works 
 if direction_of_travel == "up":
