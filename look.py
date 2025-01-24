@@ -13,6 +13,26 @@ current_floor = 0
 #example requests - we will need to change the way that requests are processed for the real-time version of the algorithm 
 request_list = [6, 2, 8, 7, 5]
 
-#function to handle one lift journey - here, a lift journey will be the lift either travelling upwards or downwards
-def lift_journey():
-  #I've planned out the algorithm I just need to type it up in python 
+while len(request_list) != 0:
+  if direction_of_travel == "up":
+    requests_sorted = sorted([request for request in request_list if request >= current_floor])
+  else: #direction_of_travel == "down"
+    requests_sorted = sorted([request for request in request_list if request <= current_floor], reverse=True)
+  if len(requests_sorted) == 0:
+    if direction_of_travel == "down":
+      direction_of_travel == "up"
+    else: #direction_of_travel == "up"
+      direction_of_travel == "down"
+    print("Changing direction to", direction_of_travel)
+  for floor in requests_sorted:
+    current_floor = floor
+    print("Current floor", floor)
+    request_list.remove(floor)
+    print("Remaining requests", request_list)
+  if direction_of_travel == "up":
+    if not any (requests > current_floor for requests in request_list):
+      direction_of_travel == "down"
+  else:
+    if not any (requests < current_floor for requests in request_list):
+      direction_of_travel == "up"
+  print("Changing dierection to", direction_of_travel)
