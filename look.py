@@ -47,6 +47,7 @@ def lift():#Made this into a function so it calls everything within it
                 else:  # direction_of_travel == "up"
                     direction_of_travel = "down"
                 print("Changing direction to", direction_of_travel)
+                continue #added continue to stop the loop from iterating again once the requests have all been dealt with - Livi
 
             for floor in requests_sorted:
                 current_floor = floor
@@ -54,11 +55,9 @@ def lift():#Made this into a function so it calls everything within it
                 request_list.remove(floor)
                 print("Remaining requests", request_list)
 
-            if direction_of_travel == "up":
-                if not any(requests > current_floor for requests in request_list):
+            if (direction_of_travel == "up") and (not any(requests > current_floor for requests in request_list)):
                     direction_of_travel = "down"
-            else:
-                if not any(requests < current_floor for requests in request_list):
+            elif (direction_of_travel == "down") and (not any(requests < current_floor for requests in request_list)):
                     direction_of_travel = "up"
             print("Changing direction to", direction_of_travel)
 
