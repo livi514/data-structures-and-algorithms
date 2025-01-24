@@ -44,3 +44,21 @@ while len(request_list) != 0:
   print("Changing direction to", direction_of_travel)
 '''
 
+#trying something - let's hope this works 
+if direction_of_travel == "up":
+  requests_sorted = sorted([request for request in request_list if request >= current_floor])
+else:
+  requests_sorted = sorted([request for request in request_list if request <= current_floor], reverse=True)
+for floor in requests_sorted:
+  current_floor = floor
+  print("Current floor", floor)
+  request_list.remove(floor)
+  print("Remaining requests", request_list)
+  if direction_of_travel == "up":
+    if not any (requests > current_floor for requests in request_list):
+      direction_of_travel == "down"
+  else:
+    if not any (requests < current_floor for requests in request_list):
+      direction_of_travel == "up"
+  print("Changing direction to", direction_of_travel)
+  continue 
