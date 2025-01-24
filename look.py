@@ -3,8 +3,6 @@ LOOK algorithm. Like SCAN, but the direction can be changed at any point if no
 more requests exist in the current direction
 '''
 
-#CURRENTLY DEBUGGING
-
 #ground_floor - floor number 0
 
 top_floor_number = 10 #value can be any positive integer
