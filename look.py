@@ -29,8 +29,11 @@ def lift():#Made this into a function so it calls everything within it
 
             #changed this to <= top_floor number rather than < top_floor number - Livi
             if 0 <= floor_request <= top_floor_number: #This checks if the floor request is within the ground floor(0) and top floor(10)
-                request_list.append(floor_request)
-                print(f"Added floor requests: {floor_request}")
+                if floor_request not in request_list: #checking whether the request is already in the list to avoid duplicates 
+                    request_list.append(floor_request)
+                else:
+                    print(f"Floor {floor_request} is already in the request list.")
+
             else: print(f"Invalid input. Please enter a valid floor number (0-{top_floor_number}) or type 'exit' to stop program: ")
         else:
           print(f'Please enter a valid floor number (0-{top_floor_number}) or type "exit" to stop program:')
