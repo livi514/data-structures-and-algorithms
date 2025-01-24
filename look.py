@@ -10,7 +10,7 @@ more requests exist in the current direction
 top_floor_number = 10 #value can be any positive integer
 number_of_floors = top_floor_number + 1 #top floor number + the ground floor (floor 0)
 direction_of_travel = "up" #can be "up" or "down"
-current_floor = 5
+current_floor = 10
 
 #example requests - we will need to change the way that requests are processed for the real-time version of the algorithm 
 request_list = [6, 2, 8, 7, 5]
@@ -33,11 +33,12 @@ while len(request_list) != 0:
     print("Current floor", floor)
     request_list.remove(floor)
     print("Remaining requests", request_list)
-    if direction_of_travel == "up":
-      if not any (requests > current_floor for requests in request_list):
-        direction_of_travel == "down"
-    else:
-      if not any (requests < current_floor for requests in request_list):
-        direction_of_travel == "up"
-    print("Changing direction to", direction_of_travel)
-  '''
+    '''
+  
+  if direction_of_travel == "up":
+    if not any (requests > current_floor for requests in request_list):
+      direction_of_travel == "down"
+  else:
+    if not any (requests < current_floor for requests in request_list):
+      direction_of_travel == "up"
+  print("Changing direction to", direction_of_travel)
