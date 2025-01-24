@@ -26,11 +26,16 @@ def lift():#Made this into a function so it calls everything within it
     #Step 1: Collecting the user floor input
     #Right now it just takes in one input. Will need to fix that
     while True:
-        user_input = input(f"Enter a floor(0-{top_floor_number}) or type 'exit' to stop program: ")
+        try: #added exception handling - Livi
+            user_input = int(input(f"Enter a floor(0-{top_floor_number}) or type 'exit' to stop program: ")) # changed this to int(input()) - Livi
+        except TypeError:
+            print("Input must be an integer")
+        except: #for errors other than TypeError
+            print("Invalid input.")
         if user_input.lower == "exit": #This is an extra feature if you want the lift to stop before all the floors are done. Still woring on the listing part.
             print(f"Stopping Program. Remaining requests: {request_list}")
             break
-        if user_input.isdigit(): # This will check if the user inputs a digit
+        if (user_input.isnumeric()) and (user_input > 0): #changed this to isnumeric() and >0 as the input can be any positive integer not just digits - Livi
             floor_requests = int(user_input)
             if 0 <= floor_requests < top_floor_number: #This checks if the floor request is within the ground floor(0) and top floor(10)
                 request_list.append(floor_requests)
@@ -48,7 +53,7 @@ def lift():#Made this into a function so it calls everything within it
                                          reverse=True)
             if len(requests_sorted) == 0:
                 if direction_of_travel == "down":
-                    direction_of_travel = "up"  # "==" is mainly used comparing so this should be "="
+                    direction_of_travel = "up"  
                 else:  # direction_of_travel == "up"
                     direction_of_travel = "down"
                 print("Changing direction to", direction_of_travel)
@@ -68,26 +73,3 @@ def lift():#Made this into a function so it calls everything within it
             print("Changing direction to", direction_of_travel)
 
 lift()
-
-#----------------------------------------------------------------------------------------------------
-#Might not need this code seems to work fine now
-#trying something - let's hope this works
-'''
-if direction_of_travel == "up":
-  requests_sorted = sorted([request for request in request_list if request >= current_floor])
-else:
-  requests_sorted = sorted([request for request in request_list if request <= current_floor], reverse=True)
-for floor in requests_sorted:
-  current_floor = floor
-  print("Current floor", floor)
-  request_list.remove(floor)
-  print("Remaining requests", request_list)
-  if direction_of_travel == "up":
-    if not any (requests > current_floor for requests in request_list):
-      direction_of_travel == "down"
-  else:
-    if not any (requests < current_floor for requests in request_list):
-      direction_of_travel == "up"
-  print("Changing direction to", direction_of_travel)
-  continue 
-'''
