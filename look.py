@@ -39,9 +39,8 @@ def lift():#Made this into a function so it calls everything within it
         while len(request_list) != 0:
             if direction_of_travel == "up":
                 requests_sorted = sorted([request for request in request_list if request >= current_floor])
-            else:  # direction_of_travel = "down"
-                requests_sorted = sorted([request for request in request_list if request <= current_floor],
-                                         reverse=True)
+            else:  # direction_of_travel == "down"
+                requests_sorted = sorted([request for request in request_list if request <= current_floor], reverse=True)
             if len(requests_sorted) == 0:
                 if direction_of_travel == "down":
                     direction_of_travel = "up"  
