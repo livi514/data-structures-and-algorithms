@@ -1,1 +1,12 @@
+Simulation Report: Implementing Lift Systems Using LOOK and SCAN Algorithms
 
+Scenarios to test:
+
+1. Getting each algorithm to transport one person to the top floor.
+- both lifts should travel all the way to the top floor, the person should get off (capacity limits etc. should be adjusted accordingly), and the lift direction should be changed to down
+
+2. Getting each algorithm to transport one person to a floor other than the top floor.
+- the scan lift should still travel all the way to the top floor
+- the look lift should travel to the requested floor, then change direction as there are no more requests in the current direction 
+
+3. 
