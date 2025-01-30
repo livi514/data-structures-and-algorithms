@@ -12,3 +12,4 @@ def process_input_file():
   floors = floors_and_capacity[0].strip()
   capacity = floors_and_capacity[1].strip()
   
+  
