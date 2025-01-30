@@ -29,4 +29,11 @@ input_file()
 
 def lift():
     global direction_of_travel, current_floor
-
+    if direction_of_travel == "up":
+        for i in range(current_floor, top_floor):
+            break
+            #will add code later
+    else:
+        for i in range(current_floor, bottom_floor):
+            break
+            #will add code later
