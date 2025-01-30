@@ -9,4 +9,12 @@ Scenarios to test:
 - the scan lift should still travel all the way to the top floor
 - the look lift should travel to the requested floor, then change direction as there are no more requests in the current direction 
 
-3. 
+3. Getting the algorithm to handle multiple requests in the same direction, including the top floor.
+- e.g. starting from the bottom floor, requests floors 3, 6, 10, with the top floor being 10
+- both of the lifts should stop at each floor then change direction to "down" at the top floor
+
+4. Getting the algorithm to handle multiple requests in the same direction, not including the top floor.
+- e.g. starting from the bottom floor, requests floors 3, 6, 8, with the top floor being 10
+- the scan lift should still travel all the way to the top floor
+- the look lift should switch direction to "down" after servicing the request at floor 9
+
