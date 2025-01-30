@@ -8,7 +8,7 @@ import time
 def process_input_file():
   input_file = open("input.txt", "r")
   input_file.readline() #reads the first line but doesn't do anything with it, as the first line is just a description of the second file 
-  floors_and_capacity = input_file.readline().split(",").strip() #gets the second line of the file
+  floors_and_capacity = input_file.readline().strip().split(",") #gets the second line of the file
   floors = int(floors_and_capacity[0].strip())
   capacity = int(floors_and_capacity[1].strip())
   input_file.readline() #reading the third line
