@@ -18,9 +18,8 @@ direction_of_travel = "up" #can be "up" or "down"
 current_floor = 10
 time_between_floors = 2 #time it takes to travel between one floor to the next, in seconds
 
-people_getting_on = []
-people_getting_off = []
-    
+request_list = []
+
 def lift():#Made this into a function so it calls everything within it
     global direction_of_travel, current_floor
 
