@@ -25,18 +25,23 @@ def input_file():
     print("Floor Requests:")
     for floor, requests in floor_requests.items():
         print(f"  Floor {floor}: {requests if requests else 'No requests'}")
-input_file()
+    return building_info, floor_requests
 
-top_floor = #idk how i'd get this
+building_info, floor_requests = input_file()
+top_floor = building_info["num_floors"]
+bottom_floor = 1 #assuming 1 is the ground floor as there's no floor 0 in the input file examples?
+current_floor = bottom_floor
 direction_of_travel = "up"
 
 def lift():
     global direction_of_travel, current_floor
     if direction_of_travel == "up":
-        for i in range(current_floor, top_floor):
-            break
+        for floor in range(current_floor, top_floor+1):
+            print(f"Lift is at floor {floor}")
             #will add code later
     else:
-        for i in range(current_floor, bottom_floor):
-            break
+        for floor in range(current_floor, bottom_floor):
+            print(f"Lift is at floor {floor}")
             #will add code later
+
+lift()
