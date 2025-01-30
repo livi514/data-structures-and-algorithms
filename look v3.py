@@ -11,5 +11,10 @@ def process_input_file():
   floors_and_capacity = input_file.readline().split(",") #gets the second line of the file
   floors = floors_and_capacity[0].strip()
   capacity = floors_and_capacity[1].strip()
-  
-  
+  print(floors)
+  print(capacity)
+  input_file.readline() #reading the third line
+  for line in input_file():
+    floor_and_requests = line.split(":")
+    
+process_input_file()
