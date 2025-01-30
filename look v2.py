@@ -71,7 +71,7 @@ def lift():#Made this into a function so it calls everything within it
                 while time.time() - start_time < time_between_floors:
                     user_input = input(f"Enter a floor(0-{top_floor_number}) or press 'enter' if there are no new requests currently. Type 'exit' to stop the program: ").strip().lower()
                     if user_input.isnumeric():
-                        new_floor_request = int(new_request)
+                        new_floor_request = int(user_input)
                         if 0 <= new_floor_request <= top_floor_number:
                             if new_floor_request not in request_list:
                                 request_list.append(new_floor_request)
