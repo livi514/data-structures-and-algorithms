@@ -13,7 +13,7 @@ def process_input_file():
   capacity = int(floors_and_capacity[1].strip())
   input_file.readline() #reading the third line
   floor_requests = {}
-  for line in input_file():
+  for line in input_file:
     floor_and_requests = line.split(":")
     floor = floor_and_requests[0]
     requests = floor_and_requests[1]
