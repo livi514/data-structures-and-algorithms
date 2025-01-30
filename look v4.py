@@ -26,3 +26,6 @@ def input_file():
     for floor, requests in floor_requests.items():
         print(f"  Floor {floor}: {requests if requests else 'No requests'}")
 input_file()
+
+def lift():
+    
