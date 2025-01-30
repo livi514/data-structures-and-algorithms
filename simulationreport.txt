@@ -11,6 +11,10 @@ Expected results:
 - Both algorithms should be equally efficient, provided that the time spend travelling between one floor to the other is the same for each.
 
 2. Getting each algorithm to transport one person to a floor other than the top floor.
+How to run this test:
+- Set the top floor to have a higher value than the requested floor.
+- E.g. set the top floor to 10, and the request to 7.
+- Do not enter any new requests while the lift is travelling.
 - the scan lift should still travel all the way to the top floor
 - the look lift should travel to the requested floor, then change direction as there are no more requests in the current direction 
 
@@ -23,3 +27,8 @@ Expected results:
 - the scan lift should still travel all the way to the top floor
 - the look lift should switch direction to "down" after servicing the request at floor 9
 
+
+
+I'm going to add some tests related to handling real-time requests as well.
+I will add tests to do with capacity limits as well once we decide how to define that.
+- Livi
