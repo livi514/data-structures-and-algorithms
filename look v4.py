@@ -27,6 +27,9 @@ def input_file():
         print(f"  Floor {floor}: {requests if requests else 'No requests'}")
 input_file()
 
+top_floor = #idk how i'd get this
+direction_of_travel = "up"
+
 def lift():
     global direction_of_travel, current_floor
     if direction_of_travel == "up":
