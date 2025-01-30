@@ -28,4 +28,5 @@ def input_file():
 input_file()
 
 def lift():
-    
+    global direction_of_travel, current_floor
+
