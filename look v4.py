@@ -1,3 +1,5 @@
+#not handling real-time requests at the moment
+
 def input_file():
     floor_requests = {}
     building_info = {}
@@ -9,9 +11,9 @@ def input_file():
                 continue # This will skip the comments and any empty line -Kim
 
             if "," in line and ":" not in line:
-                num_floors, capcity = map(int, line.split(","))
+                num_floors, capacity = map(int, line.split(","))
                 building_info["num_floors"] = num_floors
-                building_info["capacity"] = capcity
+                building_info["capacity"] = capacity
                 continue
 
             floor, requests = line.split(":")
@@ -38,10 +40,28 @@ def lift():
     if direction_of_travel == "up":
         for floor in range(current_floor, top_floor+1):
             print(f"Lift is at floor {floor}")
-            #will add code later
+            
+            '''
+            To dos (use similar logic for travelling downwards)
+            We should have people get off the lift first, and then new people get on.
+            - adjust capacity based on length of value associated with that floor
+            '''
+            #this is to check who's getting off at this floor
+            for i in range(1, floor+1):
+                if i in floor_requests[floor]:
+                    floor_requests[floor].remove(i)
+                    building_info["capacity"] += 1 #since one person got off
+
+            requests_at_floor = floor_requests[floor]
+            num_people_at_floor = len(requests_at_floor)
+            while building_info["capacity"] > 0:
+                building_info["capacity"] -= num_people_at_floor
+                if building_info["capacity"] == 0:
+                    print("No more space left on the lift.")
+                    #some logic idk - need to continue to the next floor because maybe people will get off there
+            
     else:
         for floor in range(current_floor, bottom_floor):
             print(f"Lift is at floor {floor}")
-            #will add code later
 
 lift()
