@@ -37,31 +37,21 @@ direction_of_travel = "up"
 
 def lift():
     global direction_of_travel, current_floor
-    if direction_of_travel == "up":
-        for floor in range(current_floor, top_floor+1):
-            print(f"Lift is at floor {floor}")
-            
-            '''
-            To dos (use similar logic for travelling downwards)
-            We should have people get off the lift first, and then new people get on.
-            - adjust capacity based on length of value associated with that floor
-            '''
-            #this is to check who's getting off at this floor
-            for i in range(1, floor+1):
-                if i in floor_requests[floor]:
-                    floor_requests[floor].remove(i)
-                    building_info["capacity"] += 1 #since one person got off
+    passengers = []
+    while True:
+        passengers_to_remove = [p for p in passengers if p == current_floor]
+        while ((floor_requests[current_floor]) and building_info["capacity"] > 0):
+            passenger_getting_on = floor_requests[current_floor].pop(0)
+            passengers.append(passenger_getting_on)
+            building_info["capacity"] -= 1
 
-            requests_at_floor = floor_requests[floor]
-            num_people_at_floor = len(requests_at_floor)
-            while building_info["capacity"] > 0:
-                building_info["capacity"] -= num_people_at_floor
-                if building_info["capacity"] == 0:
-                    print("No more space left on the lift.")
-                    #some logic idk - need to continue to the next floor because maybe people will get off there
-            
-    else:
-        for floor in range(current_floor, bottom_floor):
-            print(f"Lift is at floor {floor}")
+        if direction_of_travel == "up":
+            current_floor += 1
+        else:
+            current_floor -= 1
+
+        if not passengers and not any(floor_requests.values()):
+            print("All requests fulfilled. Lift is idle.")
+            break
 
 lift()
