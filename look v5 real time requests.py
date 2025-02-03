@@ -64,10 +64,11 @@ def lift():
                 print(f"Floor {current_floor}")
                 print(f"Remaining capacity: {building_info['capacity']}")
 
-
         #Checking if there are any more requests in the input file not fufiled
         if not passengers and not any(floor_requests.values()):
             print("All requests fulfilled. Lift is idle.")
+            print(f"Current Floor: {current_floor}")
+            input("Please enter a floor")
             print(f"Current state of the lift: {floor_requests}")
             break
 
