@@ -1,5 +1,5 @@
 #not handling real-time requests at the moment
-
+#Edited the lift function to compare lift direction and people getting off on a floor
 def input_file():
     floor_requests = {}
     building_info = {}
@@ -66,5 +66,4 @@ def lift():
             print("All requests fulfilled. Lift is idle.")
             print(f"Current state of the lift: {floor_requests}")
             break
-
 lift()
