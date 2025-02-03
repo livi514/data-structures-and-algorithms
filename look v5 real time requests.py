@@ -37,13 +37,21 @@ bottom_floor = 1 #assuming 1 is the ground floor as there's no floor 0 in the in
 current_floor = bottom_floor
 direction_of_travel = "up"
 
+
 def lift():
     global direction_of_travel, current_floor
     passengers = []
 
     while True:
-        #We will remove passengers who have reached the current floor the lift move to
-        passengers = [p for p in passengers if p != current_floor]
+        #Dropping passengers
+        passengers_to_drop = [p for p in passengers if p == current_floor]
+        for p in passengers_to_drop:
+            passengers.remove(p)
+            building_info["capacity"] += 1
+        if passengers_to_drop:
+            print(f"Dropping off {len(passengers_to_drop)} passenger(s) at floor {current_floor}")
+            print(f"Going {direction_of_travel}")
+            print(f"Capacity availiable: {building_info['capacity']}")
 
         #Loading passengers into the lift
         if floor_requests.get(current_floor) and building_info["capacity"] > 0:
@@ -52,7 +60,16 @@ def lift():
                 passengers.append(passengers_getting_on)
                 building_info["capacity"] -= 1
                 print(f"Current passengers on lift: {passengers}")
+                print(f"Going {direction_of_travel}")
+                print(f"Floor {current_floor}")
                 print(f"Remaining capacity: {building_info['capacity']}")
+
+
+        #Checking if there are any more requests in the input file not fufiled
+        if not passengers and not any(floor_requests.values()):
+            print("All requests fulfilled. Lift is idle.")
+            print(f"Current state of the lift: {floor_requests}")
+            break
 
         #Checking if the lift needs to change directions
         if direction_of_travel == "up" and current_floor == top_floor:
@@ -66,8 +83,5 @@ def lift():
         else:
             current_floor -= 1
 
-        if not passengers and not any(floor_requests.values()):
-            print("All requests fulfilled. Lift is idle.")
-            print(f"Current state of the lift: {floor_requests}")
-            break
+
 lift()
