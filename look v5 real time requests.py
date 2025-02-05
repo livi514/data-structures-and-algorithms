@@ -52,18 +52,20 @@ def lift():
     global direction_of_travel, current_floor
     passengers = []
     max_capacity = building_info["capacity"]
+
     while True:
         #Dropping passengers
         passengers_to_drop = [p for p in passengers if p == current_floor]
         for p in passengers_to_drop:
             passengers.remove(p)
+
         if passengers_to_drop:
             print(f"Dropping off {len(passengers_to_drop)} passenger(s) at floor {current_floor}")
             print(f"Going {direction_of_travel}")
             print(f"Capacity available: {building_info['capacity']}")
 
         #Loading passengers into the lift
-        if floor_requests.get(current_floor) and building_info["capacity"] > 0:
+        if floor_requests.get(current_floor):
             while floor_requests[current_floor] and len(passengers) < max_capacity:
                 passengers_getting_on = floor_requests[current_floor].pop(0)
                 passengers.append(passengers_getting_on)
