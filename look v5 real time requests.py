@@ -47,17 +47,16 @@ bottom_floor = 1 #assuming 1 is the ground floor as there's no floor 0 in the in
 current_floor = bottom_floor
 direction_of_travel = "up"
 
-
+#edited this function so that it handles capacity without affecting the building info - Livi 
 def lift():
     global direction_of_travel, current_floor
     passengers = []
-
+    max_capacity = building_info["capacity"]
     while True:
         #Dropping passengers
         passengers_to_drop = [p for p in passengers if p == current_floor]
         for p in passengers_to_drop:
             passengers.remove(p)
-            building_info["capacity"] += 1
         if passengers_to_drop:
             print(f"Dropping off {len(passengers_to_drop)} passenger(s) at floor {current_floor}")
             print(f"Going {direction_of_travel}")
@@ -65,10 +64,9 @@ def lift():
 
         #Loading passengers into the lift
         if floor_requests.get(current_floor) and building_info["capacity"] > 0:
-            while floor_requests[current_floor] and building_info["capacity"] > 0:
+            while floor_requests[current_floor] and len(passengers) < max_capacity:
                 passengers_getting_on = floor_requests[current_floor].pop(0)
                 passengers.append(passengers_getting_on)
-                building_info["capacity"] -= 1
                 print(f"Current passengers on lift: {passengers}")
                 print(f"Going {direction_of_travel}")
                 print(f"Floor {current_floor}")
@@ -78,7 +76,7 @@ def lift():
         if not passengers and not any(floor_requests.values()):
             print("All requests fulfilled. Lift is idle.")
             print(f"Current Floor: {current_floor}")
-            input("Please enter a floor")
+            input("Please enter a floor") #why are we allowing the user to enter a floor here? - Livi
             print(f"Current state of the lift: {floor_requests}")
             break
 
