@@ -29,16 +29,17 @@ def input_file():
                 floor = int(floor.strip())
                 requests = [int(r) for r in requests.split(",") if r.strip()] #Converting the values into integers
                 floor_requests[floor] = requests #Putting the values into the dictionary
+            print("Building information:")
+            print(f"Number of floors: {building_info['num_floors']}")
+            print(f"Lift capacity: {building_info['capacity']} \n")
+
+            print("Floor Requests:")
+            for floor, requests in floor_requests.items():
+                print(f"  Floor {floor}: {requests if requests else 'No requests'}")
+            return building_info, floor_requests
     except:
         print("File cannot be found, please try again.")
-    print("Building information:")
-    print(f"Number of floors: {building_info['num_floors']}")
-    print(f"Lift capacity: {building_info['capacity']} \n")
 
-    print("Floor Requests:")
-    for floor, requests in floor_requests.items():
-        print(f"  Floor {floor}: {requests if requests else 'No requests'}")
-    return building_info, floor_requests
 
 building_info, floor_requests = input_file()
 top_floor = building_info["num_floors"]
