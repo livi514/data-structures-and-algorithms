@@ -5,8 +5,7 @@ def input_file():
     building_info = {}
     document = input("Please enter a lift file name: ")
     document = document.strip()
-    print(document[-4:0])
-    if document[-4:0] != ".txt":
+    if document.endswith(".txt"):
         file = document + ".txt"
     else:
         file = document
