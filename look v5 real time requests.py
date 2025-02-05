@@ -6,9 +6,9 @@ def input_file():
     document = input("Please enter a lift file name: ")
     document = document.strip()
     if document.endswith(".txt"):
-        file = document + ".txt"
-    else:
         file = document
+    else:
+        file = document + ".txt"
     with open(file) as f:
         for line in f:
             line = line.strip()
