@@ -93,8 +93,10 @@ def lift():
             if requests:  #checking floors that have requests
                 if floor > current_floor: #if a floor above the current floor has requests, then requests_above is set to True
                     requests_above = True
+                    break #if we find a request above the current floor, we do not need to keep checking, so we can break out of the loop
                 elif floor < current_floor: #if a floor below the current floor has requests, then requests_below is set to True
                     requests_below = True
+                    break #if we find a request below the current floor, we do not need to keep checking, so we can break out of the loop
 
         #deciding if the lift should change direction
         #if we have no more requests in the current direction or we reach the top/bottom floor, the lift switches directions
