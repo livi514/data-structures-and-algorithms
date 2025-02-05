@@ -83,12 +83,29 @@ def lift():
             break
 
         #Checking if the lift needs to change directions
-        if direction_of_travel == "up" and current_floor == top_floor:
-            direction_of_travel = "down"
-        elif direction_of_travel == "down" and current_floor == bottom_floor:
-            direction_of_travel = "up"
+        #I changed this code so that if there are no more requests in the current direction, the lift changes direction - Livi
+        #setting requests_above and requests_below to False to begin with, these will be changed to True later if request are found below/above
+        requests_above = False
+        requests_below = False
 
-        #Moving the lift
+        #checking all floor requests one by one
+        for floor, requests in floor_requests.items():
+            if requests:  #checking floors that have requests
+                if floor > current_floor: #if a floor above the current floor has requests, then requests_above is set to True
+                    requests_above = True
+                elif floor < current_floor: #if a floor below the current floor has requests, then requests_below is set to True
+                    requests_below = True
+
+        #deciding if the lift should change direction
+        #if we have no more requests in the current direction or we reach the top/bottom floor, the lift switches directions
+        if direction_of_travel == "up":
+            if current_floor == top_floor or not requests_above:
+                direction_of_travel = "down" 
+        elif direction_of_travel == "down":
+            if current_floor == bottom_floor or not requests_below:
+                direction_of_travel = "up"
+
+        #moving the lift to the next floor
         if direction_of_travel == "up":
             current_floor += 1
         else:
