@@ -4,7 +4,12 @@ def input_file():
     floor_requests = {}
     building_info = {}
     document = input("Please enter a lift file name: ")
-    file = str(document) + ".txt"
+    document = document.strip()
+    print(document[-4:0])
+    if document[-4:0] != ".txt":
+        file = document + ".txt"
+    else:
+        file = document
     with open(file) as f:
         for line in f:
             line = line.strip()
@@ -51,7 +56,7 @@ def lift():
         if passengers_to_drop:
             print(f"Dropping off {len(passengers_to_drop)} passenger(s) at floor {current_floor}")
             print(f"Going {direction_of_travel}")
-            print(f"Capacity availiable: {building_info['capacity']}")
+            print(f"Capacity available: {building_info['capacity']}")
 
         #Loading passengers into the lift
         if floor_requests.get(current_floor) and building_info["capacity"] > 0:
@@ -64,7 +69,7 @@ def lift():
                 print(f"Floor {current_floor}")
                 print(f"Remaining capacity: {building_info['capacity']}")
 
-        #Checking if there are any more requests in the input file not fufiled
+        #Checking if there are any more requests in the input file not fulfiled
         if not passengers and not any(floor_requests.values()):
             print("All requests fulfilled. Lift is idle.")
             print(f"Current Floor: {current_floor}")
@@ -83,6 +88,5 @@ def lift():
             current_floor += 1
         else:
             current_floor -= 1
-
 
 lift()
