@@ -104,5 +104,4 @@ Going up
 Capacity available: 4 (also for some reason the capacity isn't 5 here?)
 
 This works fine for a simple implementation, however, the person from floor 4 who wanted to go to floor 5 had to wait a very long time, from the first journey to the third. 
-
-I'll continue this later - Livi
+If we have time, we can work on adding some sort of system to prioritise certain people over others.
