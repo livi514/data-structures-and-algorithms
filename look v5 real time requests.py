@@ -105,11 +105,9 @@ def lift():
 
         #deciding if the lift should change direction
         #if we have no more requests in the current direction or we reach the top/bottom floor, the lift switches directions
-        if direction_of_travel == "up":
-            if current_floor == top_floor or not requests_above:
+        if direction_of_travel == "up" and not requests_above:
                 direction_of_travel = "down" 
-        elif direction_of_travel == "down":
-            if current_floor == bottom_floor or not requests_below:
+        elif direction_of_travel == "down" and not requests_below:
                 direction_of_travel = "up"
 
         #moving the lift to the next floor
