@@ -1,44 +1,48 @@
 #not handling real-time requests at the moment
 #Edited the lift function to compare lift direction and people getting off on a floor - Kim
 def input_file():
-    floor_requests = {}
-    building_info = {}
-    document = input("Please enter a lift file name: ")
-    document = document.strip()
-    #editing the code so that it can handle the input whether the user includes ".txt" at the end or not - Livi
-    if document.endswith(".txt"):
-        file = document
-    else:
-        file = document + ".txt"
-    #added exception handling - Livi
-    try:
-        with open(file) as f:
-            for line in f:
-                line = line.strip()
-                #print(line)
-                if line.startswith("#") or not line:
-                    continue # This will skip the comments and any empty line -Kim
+    while True:
+        floor_requests = {}
+        building_info = {}
+        document = input("Please enter a lift file name: ").strip()
+        #editing the code so that it can handle the input whether the user includes ".txt" at the end or not - Livi
+        if document.endswith(".txt"):
+            file = document
+        else:
+            file = document + ".txt"
+        #added exception handling - Livi
+        try:
+            with open(file) as f:
+                for line in f:
+                    line = line.strip()
+                    #print(line)
+                    if line.startswith("#") or not line:
+                        continue # This will skip the comments and any empty line -Kim
 
-                if "," in line and ":" not in line:
-                    num_floors, capacity = map(int, line.split(","))
-                    building_info["num_floors"] = num_floors
-                    building_info["capacity"] = capacity
-                    continue
+                    if "," in line and ":" not in line:
+                        num_floors, capacity = map(int, line.split(","))
+                        building_info["num_floors"] = num_floors
+                        building_info["capacity"] = capacity
+                        continue
 
-                floor, requests = line.split(":")
-                floor = int(floor.strip())
-                requests = [int(r) for r in requests.split(",") if r.strip()] #Converting the values into integers
-                floor_requests[floor] = requests #Putting the values into the dictionary
-            print("Building information:")
-            print(f"Number of floors: {building_info['num_floors']}")
-            print(f"Lift capacity: {building_info['capacity']} \n")
+                    floor, requests = line.split(":")
+                    floor = int(floor.strip())
+                    requests = [int(r) for r in requests.split(",") if r.strip()] #Converting the values into integers
+                    floor_requests[floor] = requests #Putting the values into the dictionary
+                print("Building information:")
+                print(f"Number of floors: {building_info['num_floors']}")
+                print(f"Lift capacity: {building_info['capacity']} \n")
 
-            print("Floor Requests:")
-            for floor, requests in floor_requests.items():
-                print(f"  Floor {floor}: {requests if requests else 'No requests'}")
-            return building_info, floor_requests
-    except:
-        print("File cannot be found, please try again.")
+                print("Floor Requests:")
+                for floor, requests in floor_requests.items():
+                    print(f"  Floor {floor}: {requests if requests else 'No requests'}")
+                return building_info, floor_requests
+        except FileNotFoundError:
+            print(f"Error: The file '{file}' cannot be found. Please try again.")
+        except ValueError:
+            print(f"Error: Invalid file format, please try again.")
+        except Exception as e:
+            print(f"An unexpected error occured: {e}. Please try again.")
 
 
 building_info, floor_requests = input_file()
