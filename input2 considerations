@@ -1,0 +1,108 @@
+Currently, the look algorithm works like this for input2.txt:
+
+Floor Requests:
+  Floor 1: [4, 6]
+  Floor 2: [3, 5, 7]
+  Floor 3: [8]
+  Floor 4: [2, 5]
+  Floor 5: [6, 1]
+  Floor 6: [7]
+  Floor 7: [4, 2]
+  Floor 8: [3]
+
+First journey:
+
+Picking up 2 passenger(s) at floor 1
+Current passengers: [4, 6]
+Current passengers on lift: [4, 6]
+Going up
+Floor 1
+Remaining capacity: 2
+Picking up 3 passenger(s) at floor 2
+Current passengers: [4, 6, 3, 5, 7]
+Current passengers on lift: [4, 6, 3, 5, 7]
+Going up
+Floor 2
+Remaining capacity: 5
+Dropping off 1 passenger(s) at floor 3
+Going up
+Capacity available: 4
+Picking up 1 passenger(s) at floor 3
+Current passengers: [4, 6, 5, 7, 8]
+Current passengers on lift: [4, 6, 5, 7, 8]
+Going up
+Floor 3
+Remaining capacity: 5
+Dropping off 1 passenger(s) at floor 4
+Going up
+Capacity available: 4
+Picking up 1 passenger(s) at floor 4
+Current passengers: [6, 5, 7, 8, 2]
+Current passengers on lift: [6, 5, 7, 8, 2]
+Going up
+Floor 4
+Remaining capacity: 5
+Dropping off 1 passenger(s) at floor 5
+Going up
+Capacity available: 4
+Picking up 1 passenger(s) at floor 5
+Current passengers: [6, 7, 8, 2, 6]
+Current passengers on lift: [6, 7, 8, 2, 6]
+Going up
+Floor 5
+Remaining capacity: 5
+Dropping off 2 passenger(s) at floor 6
+Going up
+Capacity available: 3
+Picking up 1 passenger(s) at floor 6
+Current passengers: [7, 8, 2, 7]
+Current passengers on lift: [7, 8, 2, 7]
+Going up
+Floor 6
+Remaining capacity: 4
+Dropping off 2 passenger(s) at floor 7
+Going up
+Capacity available: 2
+Picking up 2 passenger(s) at floor 7
+Current passengers: [8, 2, 4, 2]
+Current passengers on lift: [8, 2, 4, 2]
+Going up
+Floor 7
+Remaining capacity: 4
+Dropping off 1 passenger(s) at floor 8
+Going up
+Capacity available: 3
+Picking up 1 passenger(s) at floor 8
+Current passengers: [2, 4, 2, 3]
+Current passengers on lift: [2, 4, 2, 3]
+Going up
+Floor 8
+Remaining capacity: 4
+Picking up 1 passenger(s) at floor 5
+Current passengers: [2, 4, 2, 3, 1]
+Current passengers on lift: [2, 4, 2, 3, 1]
+Going down
+
+Second journey:
+
+Floor 5
+Remaining capacity: 5
+Dropping off 1 passenger(s) at floor 4
+Going down
+Capacity available: 4
+Picking up 1 passenger(s) at floor 4
+Current passengers: [2, 2, 3, 1, 5]
+Current passengers on lift: [2, 2, 3, 1, 5]
+Going down
+
+Third journey:
+
+Floor 4
+Remaining capacity: 5
+Dropping off 1 passenger(s) at floor 5
+Going up
+Capacity available: 4 (also for some reason the capacity isn't 5 here?)
+
+This works fine for a simple implementation, however, the person from floor 4 who wanted to go to floor 5 had to wait a very long time, from the first journey to the third. 
+
+I'll continue this later - Livi
