@@ -54,40 +54,56 @@ direction_of_travel = "up"
 #edited this function so that it handles capacity without affecting the building info - Livi 
 def lift():
     global direction_of_travel, current_floor
-    passengers = []
+    passengers_on_board = []
     max_capacity = building_info["capacity"]
 
     while True:
         #Dropping passengers
-        passengers_to_drop = [p for p in passengers if p == current_floor]
-        for p in passengers_to_drop:
-            passengers.remove(p)
+        passengers_to_drop = [p for p in passengers_on_board if p == current_floor]
+        passengers_on_board = [p for p in passengers_on_board if p != current_floor]
+
 
         if passengers_to_drop:
             print(f"Dropping off {len(passengers_to_drop)} passenger(s) at floor {current_floor}")
             print(f"Going {direction_of_travel}")
-            print(f"Capacity available: {len(passengers)}")
+            print(f"Capacity available: {len(passengers_on_board)}")
         
         # Picking up passengers (while within capacity)
         if floor_requests.get(current_floor):
             new_passengers = []
-            while floor_requests[current_floor] and len(passengers) < max_capacity:
+            while floor_requests[current_floor] and len(passengers_on_board) < max_capacity:
                 new_passenger = floor_requests[current_floor].pop(0)
-                passengers.append(new_passenger)
+                passengers_on_board.append(new_passenger)
                 new_passengers.append(new_passenger)
             if new_passengers:
                 print(f"Picking up {len(new_passengers)} passenger(s) at floor {current_floor}")
-                print(f"Current passengers: {passengers}")
-                print(f"Current passengers on lift: {passengers}")
+                print(f"Current passengers on lift: {passengers_on_board}")
                 print(f"Going {direction_of_travel}")
                 print(f"Floor {current_floor}")
-                print(f"Remaining capacity: {len(passengers)}")
+                print(f"Remaining capacity: {max_capacity -len(passengers_on_board)}")
+
+        user_input = input("Please enter a floor (or 'exit' to stop): ")#For real time requests- Kim
+        print(f"New user input: {user_input}")
+
+        if user_input == "exit":
+            print("Lift is stopping.")
+            break
+        elif user_input.isdigit():
+            new_floor = int(user_input)
+            if 1 <= new_floor <= top_floor:#Checking if the input is within the building for info
+                print(f"New request added: floor {current_floor} -> {new_floor}")
+                floor_requests.setdefault(new_floor, []).append(new_floor)
+                print(f"Current passengers on lift: {passengers_on_board}")
+            else:
+                print(f"Invalid input. Please enter a floor between 1 and {top_floor}.")
+        else:
+            print(f"Invalid input. Please enter a floor between 1 and {top_floor}.")
+
 
         #Checking if there are any more requests in the input file not fulfiled
-        if not passengers and not any(floor_requests.values()):
+        if not passengers_on_board and not any(floor_requests.values()):
             print("All requests fulfilled. Lift is idle.")
             print(f"Current Floor: {current_floor}")
-            input("Please enter a floor") #why are we allowing the user to enter a floor here? - Livi
             print(f"Current state of the lift: {floor_requests}")
             break
 
@@ -105,7 +121,8 @@ def lift():
 
         #moving the lift to the next floor
         if direction_of_travel == "up":
-            current_floor += 1
+            if current_floor < top_floor:
+                current_floor += 1
         else:
             current_floor -= 1
 
