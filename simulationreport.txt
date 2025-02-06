@@ -27,8 +27,8 @@ How to run this test:
 - the scan lift should still travel all the way to the top floor
 - the look lift should switch direction to "down" after servicing the request at floor 9
 
-
-
-I'm going to add some tests related to handling real-time requests as well.
-I will add tests to do with capacity limits as well once we decide how to define that.
+I'll have to change these so that they take into account the input files.
+Real-time request handling is no longer a requirement, however, we can implement it for extra marks.
+If we decide to implement some real-time request handling, then we would have to make some scenarios to test this.
+I'll add some scenarios that test the capacity limits as well.
 - Livi
