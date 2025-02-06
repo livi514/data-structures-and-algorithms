@@ -62,17 +62,22 @@ def lift():
         if passengers_to_drop:
             print(f"Dropping off {len(passengers_to_drop)} passenger(s) at floor {current_floor}")
             print(f"Going {direction_of_travel}")
-            print(f"Capacity available: {building_info['capacity']}")
-
-        #Loading passengers into the lift
+            print(f"Capacity available: {len(passengers)}")
+        
+        # Picking up passengers (while within capacity)
         if floor_requests.get(current_floor):
+            new_passengers = []
             while floor_requests[current_floor] and len(passengers) < max_capacity:
-                passengers_getting_on = floor_requests[current_floor].pop(0)
-                passengers.append(passengers_getting_on)
+                new_passenger = floor_requests[current_floor].pop(0)
+                passengers.append(new_passenger)
+                new_passengers.append(new_passenger)
+            if new_passengers:
+                print(f"Picking up {len(new_passengers)} passenger(s) at floor {current_floor}")
+                print(f"Current passengers: {passengers}")
                 print(f"Current passengers on lift: {passengers}")
                 print(f"Going {direction_of_travel}")
                 print(f"Floor {current_floor}")
-                print(f"Remaining capacity: {building_info['capacity']}")
+                print(f"Remaining capacity: {len(passengers)}")
 
         #Checking if there are any more requests in the input file not fulfiled
         if not passengers and not any(floor_requests.values()):
