@@ -32,3 +32,7 @@ Real-time request handling is no longer a requirement, however, we can implement
 If we decide to implement some real-time request handling, then we would have to make some scenarios to test this.
 I'll add some scenarios that test the capacity limits as well.
 - Livi
+
+In terms of capacity limits:
+- With input.txt, the capacity is 4 and there are 4 requests. So they should all be able to fit into the lift with no problems for both algorithms.
+- With 
