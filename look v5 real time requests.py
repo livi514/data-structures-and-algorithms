@@ -44,7 +44,6 @@ def input_file():
         except Exception as e:
             print(f"An unexpected error occured: {e}. Please try again.")
 
-
 building_info, floor_requests = input_file()
 top_floor = building_info["num_floors"]
 bottom_floor = 1 #assuming 1 is the ground floor as there's no floor 0 in the input file examples?
@@ -94,10 +93,10 @@ def lift():
         elif user_input.isdigit():
             new_floor = int(user_input)
             if new_floor == current_floor: #added this so that the request can't be the same as the current floor - Livi
-                print(f"Passenhger is already at floor {new_floor}.") #this message is printed, and the request is ignored/not added to the list - Livi
+                print(f"Passenger is already at floor {new_floor}.") #this message is printed, and the request is ignored/not added to the list - Livi
             elif 1 <= new_floor <= top_floor:#Checking if the input is within the building for info
                 print(f"New request added: floor {current_floor} -> {new_floor}")
-                floor_requests.setdefault(new_floor, []).append(new_floor)
+                floor_requests.setdefault(current_floor, []).append(new_floor) #tried editing this but it's not helping - Livi
                 print(f"Current passengers on lift: {passengers_on_board}")
             else:
                 print(f"Invalid input. Please enter a floor between 1 and {top_floor}.")
