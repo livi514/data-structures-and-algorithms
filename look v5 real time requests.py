@@ -93,7 +93,9 @@ def lift():
             print(f"Current passengers on lift: {passengers_on_board}")
         elif user_input.isdigit():
             new_floor = int(user_input)
-            if 1 <= new_floor <= top_floor:#Checking if the input is within the building for info
+            if new_floor == current_floor: #added this so that the request can't be the same as the current floor - Livi
+                print(f"Passenhger is already at floor {new_floor}.") #this message is printed, and the request is ignored/not added to the list - Livi
+            elif 1 <= new_floor <= top_floor:#Checking if the input is within the building for info
                 print(f"New request added: floor {current_floor} -> {new_floor}")
                 floor_requests.setdefault(new_floor, []).append(new_floor)
                 print(f"Current passengers on lift: {passengers_on_board}")
@@ -101,7 +103,6 @@ def lift():
                 print(f"Invalid input. Please enter a floor between 1 and {top_floor}.")
         else:
             print(f"Invalid input. Please enter a floor between 1 and {top_floor}, press  enter if there are no new requests, or enter 'exit' to stop the program.")
-
 
         #Checking if there are any more requests in the input file not fulfiled
         if not passengers_on_board and not any(floor_requests.values()):

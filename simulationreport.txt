@@ -35,4 +35,5 @@ I'll add some scenarios that test the capacity limits as well.
 
 In terms of capacity limits:
 - With input.txt, the capacity is 4 and there are 4 requests. So they should all be able to fit into the lift with no problems for both algorithms.
-- With 
+- For input2.txt, see input2 considerations.
+
