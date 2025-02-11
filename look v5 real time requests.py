@@ -81,13 +81,16 @@ def lift():
                 print(f"Going {direction_of_travel}")
                 print(f"Floor {current_floor}")
                 print(f"Remaining capacity: {max_capacity -len(passengers_on_board)}")
-
-        user_input = input("Please enter a floor (or 'exit' to stop): ")#For real time requests- Kim
+        
+        user_input = input("Please enter a floor for a new request or press enter if there are no new requests. Enter 'exit' to stop the program: ") #gave them an option if there are no new requests but they still want to continue the program - Livi
         print(f"New user input: {user_input}")
 
         if user_input == "exit":
             print("Lift is stopping.")
             break
+        elif user_input.strip() == "": #if there are no new requests but the program is continuing - Livi
+            print("No new requests.")
+            print(f"Current passengers on lift: {passengers_on_board}")
         elif user_input.isdigit():
             new_floor = int(user_input)
             if 1 <= new_floor <= top_floor:#Checking if the input is within the building for info
@@ -97,7 +100,7 @@ def lift():
             else:
                 print(f"Invalid input. Please enter a floor between 1 and {top_floor}.")
         else:
-            print(f"Invalid input. Please enter a floor between 1 and {top_floor}.")
+            print(f"Invalid input. Please enter a floor between 1 and {top_floor}, press  enter if there are no new requests, or enter 'exit' to stop the program.")
 
 
         #Checking if there are any more requests in the input file not fulfiled
