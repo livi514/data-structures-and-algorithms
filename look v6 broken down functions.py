@@ -133,30 +133,27 @@ def moving_lift(current_floor):
     
 #edited this function so that it handles capacity without affecting the building info - Livi 
 def lift():
-    global direction_of_travel, current_floor
+    global direction_of_travel, current_floor, floor_requests
     passengers_on_board = []
     max_capacity = building_info["capacity"]
 
     while True:
+        passengers_to_drop, passengers_on_board = dropping_passengers(current_floor, passengers_on_board)
 
-        passengers_to_drop, passengers_on_board = dropping_passengers(passengers_on_board)
-        
-        # Picking up passengers (while within capacity)
-        new_passengers, passengers_on_board = picking_up_passengers(passengers_on_board, max_capacity)
+        new_passengers, passengers_on_board = picking_up_passengers(current_floor, passengers_on_board, max_capacity)
 
-        floor_requests, exit = new_requests(passengers_on_board)
-        if exit == True:
-            break #exits the lift() function and stops the execution of the lift
-
-        #Checking if there are any more requests in the input file not fulfiled
-        exit = checking_for_requests(passengers_on_board)
-        if exit == True:
+        floor_requests, exit = new_requests(current_floor, passengers_on_board)
+        if exit:
             break
 
-        #checking if we need to change direction, changing direction if needed
+        exit = checking_for_requests(current_floor, passengers_on_board)
+        if exit:
+            break
+
         direction_of_travel = changing_direction(current_floor, direction_of_travel)
         
-        #moving the lift to the next floor
-        current_floor = moving_lift(current_floor)  
+        if any(floor_requests.values()) or passengers_on_board:  # Prevent unnecessary movement
+            current_floor = moving_lift(current_floor, direction_of_travel) 
+
 
 lift()
