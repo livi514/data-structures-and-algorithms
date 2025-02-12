@@ -1,22 +1,23 @@
-#Edited the lift function to compare lift direction and people getting off on a floor - Kim
 def input_file():
     while True:
-        floor_requests = {}
-        building_info = {}
-        document = input("Please enter a lift file name: ").strip().lower()
-        #editing the code so that it can handle the input whether the user includes ".txt" at the end or not - Livi
+        #initialising floor_requests and building_info as empty dictionaries
+        floor_requests = {} #key - floor number, value - a list of floor numbers representing the floors that the passengers on that floor want to go to
+        building_info = {} #stores the number of floors and the lift's capacity
+        document = input("Please enter a lift file name: ").strip().lower() #allowing the user to input the name of the file to load, the file will contain the current floor requests 
+   
+        #handling the user input whether they include ".txt" at the end or not
         if document.endswith(".txt"):
             file = document
         else:
-            file = document + ".txt"
-        #added exception handling - Livi
-        try:
+            file = document + ".txt" #concatenating ".txt" to the end of the user input, if the user has not already included it
+        
+        #reading the file line-by-line, and storing any important information
+        try: #using exception handling in case the fie is not found, the user inputs an invalid file name, or another error occurs
             with open(file) as f:
                 for line in f:
                     line = line.strip()
-                    #print(line)
                     if line.startswith("#") or not line:
-                        continue # This will skip the comments and any empty line -Kim
+                        continue #skipping comments and empty lines as these don't contain any important information to store
 
                     if "," in line and ":" not in line:
                         num_floors, capacity = map(int, line.split(","))
