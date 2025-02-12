@@ -110,6 +110,11 @@ def new_requests(current_floor, floor_requests, top_floor):
 
 def checking_for_requests(passengers_on_board, floor_requests):
     """Checking if there are any remaining requests"""
+    return not passengers_on_board and all(not reqs for reqs in floor_requests.values())
+
+'''
+def checking_for_requests(passengers_on_board, floor_requests):
+    """Checking if there are any remaining requests"""
     """if not passengers_on_board and not any(floor_requests.values()):
         print("All requests fulfilled. Lift is idle.")
         print(f"Current Floor: {current_floor}")
@@ -117,6 +122,7 @@ def checking_for_requests(passengers_on_board, floor_requests):
         return True
     return False"""
     return not passengers_on_board and not any(floor_requests.values())#commented the above out and made it to return True if it there are no passengers or pending requests - Kim
+'''
 
 def changing_direction(current_floor, direction_of_travel, floor_requests):
     #Checking if the lift needs to change directions
@@ -139,14 +145,14 @@ def moving_lift(current_floor, direction_of_travel):
     
 #edited this function so that it handles capacity without affecting the building info - Livi 
 def lift():
-    """Main lift simulation""" #- Kim
+    """Main lift simulation"""
     building_info, floor_requests = input_file()
     top_floor = building_info["num_floors"]
-    bottom_floor = 1 #assuming 1 is the ground floor as there's no floor 0 in the input file examples?
+    bottom_floor = 1
     current_floor = bottom_floor
     direction_of_travel = "up"
-    passengers_on_board = [] #having issues with this
-    
+    passengers_on_board = []
+
     while True:
         passengers_on_board = dropping_passengers(current_floor, passengers_on_board, direction_of_travel, floor_requests)
         passengers_on_board = picking_up_passengers(current_floor, passengers_on_board, floor_requests, building_info['capacity'], direction_of_travel)
@@ -154,16 +160,15 @@ def lift():
         floor_requests, exit_program = new_requests(current_floor, floor_requests, top_floor)
         if exit_program:
             break
-        
+
         # Clean up empty requests
         floor_requests = {floor: reqs for floor, reqs in floor_requests.items() if reqs}
-        
+
         if checking_for_requests(passengers_on_board, floor_requests):
             break
-        
+
         direction_of_travel = changing_direction(current_floor, direction_of_travel, floor_requests)
         if any(floor_requests.values()) or passengers_on_board:
             current_floor = moving_lift(current_floor, direction_of_travel)
-
 
 lift()
