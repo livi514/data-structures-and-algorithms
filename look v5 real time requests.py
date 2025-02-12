@@ -1,4 +1,3 @@
-#not handling real-time requests at the moment
 #Edited the lift function to compare lift direction and people getting off on a floor - Kim
 def input_file():
     while True:
