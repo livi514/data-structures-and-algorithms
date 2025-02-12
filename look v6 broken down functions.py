@@ -1,4 +1,3 @@
-#not handling real-time requests at the moment
 #Edited the lift function to compare lift direction and people getting off on a floor - Kim
 def input_file():
      while True:
@@ -36,7 +35,7 @@ def input_file():
                     print(f"  Floor {floor}: {requests if requests else 'No requests'}")
                 return building_info, floor_requests
         except FileNotFoundError:
-            print(f"Error: The file '{file}' cannot be found. Please try again.")
+            print(f"Error: The file '{document}' cannot be found. Please try again.")
         except ValueError:
             print(f"Error: Invalid file format, please try again.")
         except Exception as e:
@@ -153,6 +152,5 @@ def lift():
         
         if any(floor_requests.values()) or passengers_on_board:  # Prevent unnecessary movement
             current_floor = moving_lift(current_floor, direction_of_travel) 
-
 
 lift()
