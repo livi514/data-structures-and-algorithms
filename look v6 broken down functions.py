@@ -1,10 +1,9 @@
-#not handling real-time requests at the moment
 #Edited the lift function to compare lift direction and people getting off on a floor - Kim
 def input_file():
     while True:
         floor_requests = {}
         building_info = {}
-        document = input("Please enter a lift file name: ").strip()
+        document = input("Please enter a lift file name: ").strip().lower()
         #editing the code so that it can handle the input whether the user includes ".txt" at the end or not - Livi
         if document.endswith(".txt"):
             file = document
@@ -46,7 +45,7 @@ def input_file():
 
 
 #broke down the lift function into smaller functions - Livi
-def dropping_passengers(current_floor, passengers_on_board, direction_of_travel):
+def dropping_passengers(current_floor, passengers_on_board, direction_of_travel, floor_requests):
         """This function is called to drop off passengers on designated floors"""
         passengers_to_drop = [p for p in passengers_on_board if p == current_floor]
         passengers_on_board = [p for p in passengers_on_board if p != current_floor]
@@ -60,7 +59,7 @@ def dropping_passengers(current_floor, passengers_on_board, direction_of_travel)
 
         return passengers_on_board
 
-def picking_up_passengers(current_floor, passengers_on_board,  floor_requests, max_capacity):
+def picking_up_passengers(current_floor, passengers_on_board, floor_requests, max_capacity, direction_of_travel):
     """This will pick up new passengers in there is space on the lift"""
     new_passengers = []
     if current_floor in floor_requests:
@@ -141,21 +140,23 @@ def moving_lift(current_floor, direction_of_travel):
 #edited this function so that it handles capacity without affecting the building info - Livi 
 def lift():
     """Main lift simulation""" #- Kim
-    global direction_of_travel, current_floor, top_floor, floor_requests
     building_info, floor_requests = input_file()
     top_floor = building_info["num_floors"]
     bottom_floor = 1 #assuming 1 is the ground floor as there's no floor 0 in the input file examples?
     current_floor = bottom_floor
     direction_of_travel = "up"
     passengers_on_board = [] #having issues with this
-
+    
     while True:
-        passengers_on_board = dropping_passengers(current_floor, passengers_on_board, direction_of_travel)
-        passengers_on_board = picking_up_passengers(current_floor, passengers_on_board, floor_requests, building_info['capacity'])
-        
+        passengers_on_board = dropping_passengers(current_floor, passengers_on_board, direction_of_travel, floor_requests)
+        passengers_on_board = picking_up_passengers(current_floor, passengers_on_board, floor_requests, building_info['capacity'], direction_of_travel)
+
         floor_requests, exit_program = new_requests(current_floor, floor_requests, top_floor)
         if exit_program:
             break
+        
+        # Clean up empty requests
+        floor_requests = {floor: reqs for floor, reqs in floor_requests.items() if reqs}
         
         if checking_for_requests(passengers_on_board, floor_requests):
             break
@@ -163,5 +164,6 @@ def lift():
         direction_of_travel = changing_direction(current_floor, direction_of_travel, floor_requests)
         if any(floor_requests.values()) or passengers_on_board:
             current_floor = moving_lift(current_floor, direction_of_travel)
+
 
 lift()
