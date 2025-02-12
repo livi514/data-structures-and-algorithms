@@ -1,18 +1,16 @@
 #not handling real-time requests at the moment
 #Edited the lift function to compare lift direction and people getting off on a floor - Kim
 def input_file():
-    while True:
+     while True:
         floor_requests = {}
         building_info = {}
         document = input("Please enter a lift file name: ").strip()
-        #editing the code so that it can handle the input whether the user includes ".txt" at the end or not - Livi
-        if document.endswith(".txt"):
-            file = document
-        else:
-            file = document + ".txt"
+        # Handle file extension
+        if not document.endswith(".txt"):
+            document += ".txt"
         #added exception handling - Livi
         try:
-            with open(file) as f:
+            with open(document) as f:
                 for line in f:
                     line = line.strip()
                     #print(line)
@@ -46,37 +44,38 @@ def input_file():
 
 building_info, floor_requests = input_file()
 top_floor = building_info["num_floors"]
-bottom_floor = 1 #assuming 1 is the ground floor as there's no floor 0 in the input file examples?
+bottom_floor = 1
 current_floor = bottom_floor
 direction_of_travel = "up"
 
 #broke down the lift function into smaller functions - Livi
-def dropping_passengers(passengers_on_board):
-        passengers_to_drop = [p for p in passengers_on_board if p == current_floor]
-        passengers_on_board = [p for p in passengers_on_board if p != current_floor]
+def dropping_passengers(passengers_on_board, current_floor):
+    passengers_to_drop = [p for p in passengers_on_board if p == current_floor]
+    passengers_on_board = [p for p in passengers_on_board if p != current_floor]
 
-        if passengers_to_drop:
-            print(f"Dropping off {len(passengers_to_drop)} passenger(s) at floor {current_floor}")
-            print(f"Going {direction_of_travel}")
-            print(f"Capacity available: {len(passengers_on_board)}")
-        return passengers_to_drop, passengers_on_board
+    if passengers_to_drop:
+        print(f"Dropping off {len(passengers_to_drop)} passenger(s) at floor {current_floor}")
+        print(f"Going {direction_of_travel}")
+        print(f"Capacity available: {len(passengers_on_board)}")
+    return passengers_to_drop, passengers_on_board
 
-def picking_up_passengers(passengers_on_board, max_capacity):
+def picking_up_passengers(passengers_on_board, current_floor, max_capacity):
     new_passengers = []
     if floor_requests.get(current_floor):
         while floor_requests[current_floor] and len(passengers_on_board) < max_capacity:
             new_passenger = floor_requests[current_floor].pop(0)
             passengers_on_board.append(new_passenger)
             new_passengers.append(new_passenger)
+        
         if new_passengers:
             print(f"Picking up {len(new_passengers)} passenger(s) at floor {current_floor}")
             print(f"Current passengers on lift: {passengers_on_board}")
             print(f"Going {direction_of_travel}")
             print(f"Floor {current_floor}")
-            print(f"Remaining capacity: {max_capacity -len(passengers_on_board)}")
+            print(f"Remaining capacity: {max_capacity - len(passengers_on_board)}")
     return new_passengers, passengers_on_board
     
-def new_requests(passengers_on_board):
+def new_requests(passengers_on_board, current_floor):
     user_input = input("Please enter a floor for a new request or press enter if there are no new requests. Enter 'exit' to stop the program: ") #gave them an option if there are no new requests but they still want to continue the program - Livi
     print(f"New user input: {user_input}")
     exit = False
@@ -109,7 +108,7 @@ def checking_for_requests(passengers_on_board):
         exit = True
     return exit
 
-def changing_direction(current_floor, direction_of_travel):
+def changing_direction(current_floor, direction_of_travel, passengers_on_board):
     #Checking if the lift needs to change directions
     #I changed this code so that if there are no more requests in the current direction, the lift changes direction - Livi
     requests_above = any(floor > current_floor and floor_requests[floor] for floor in floor_requests)
