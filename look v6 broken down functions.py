@@ -3,9 +3,17 @@ def input_file():
     '''
     Processes an input file, storing the number of floors and capacity of the lift in the dictionary "building_info" and the requests at each floor in "floor_requests.
 
-    Args: None
+    Arguments: None
 
     Returns:
+
+        building_info (dictionary): stores the number of floors in the building and the capacity of the lift
+        - keys - "num_floors", "capacity"
+        - values - the number of floors in the buikding (for num_floors) and the capacity of the lift (for capacity)
+
+        floor_requests (dictionary): stores the requests at each floor
+        - keys- the floor numbers  
+        - values - a list of the requests at that floor
 
     '''
     while True:
@@ -60,7 +68,21 @@ def input_file():
             print(f"An unexpected error occured: {e}. Please try again.")
 
 def dropping_passengers(current_floor, passengers_on_board, direction_of_travel, floor_requests):
-        """This function is called to drop off passengers on designated floors"""
+        """
+        This function is called to drop off passengers on designated floors
+
+        Arguments: 
+            current_floor (int): the floor that the lift is currently at
+            passengers_on_board (list): a list of the requests of every passenger currently on the lift (an integer for each passenger, representing the floor they want to get off at)
+            direction_of_travel (string): either "up" or "down", the direction the lift is currently travelling in
+            floor_requests (dictionary): stores the requests at each floor
+            - keys- the floor numbers  
+            - values - a list of the requests at that floor
+
+        Returns: 
+            passengers_on_board (list): a list of the requests of every passenger currently on the lift (an integer for each passenger, representing the floor they want to get off at)
+        """
+        
         passengers_to_drop = [p for p in passengers_on_board if p == current_floor]
         passengers_on_board = [p for p in passengers_on_board if p != current_floor]
         if passengers_to_drop:
