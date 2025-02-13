@@ -1,4 +1,13 @@
+#will continue comments and docstrings later - Livi
 def input_file():
+    '''
+    Processes an input file, storing the number of floors and capacity of the lift in the dictionary "building_info" and the requests at each floor in "floor_requests.
+
+    Args: None
+
+    Returns:
+
+    '''
     while True:
         #initialising floor_requests and building_info as empty dictionaries
         floor_requests = {} #key - floor number, value - a list of floor numbers representing the floors that the passengers on that floor want to go to
@@ -17,35 +26,39 @@ def input_file():
                 for line in f:
                     line = line.strip()
                     if line.startswith("#") or not line:
-                        continue #skipping comments and empty lines as these don't contain any important information to store
+                        continue #skipping comments and empty lines as these don't contain any important information to store, continue starts the next iteration
 
-                    if "," in line and ":" not in line:
-                        num_floors, capacity = map(int, line.split(","))
-                        building_info["num_floors"] = num_floors
+                    if "," in line and ":" not in line: #this means that the line contains the number of floors in the building and the capacity of the lift
+                        num_floors, capacity = map(int, line.split(",")) #splitting at the comma, the first digit is the number of floors, the second is the capacity
+                        #storing the number of floors and capacity in building_info
+                        building_info["num_floors"] = num_floors 
                         building_info["capacity"] = capacity
-                        continue
+                        continue #starting the next iteration as we have already dealt with this line
 
-                    floor, requests = line.split(":")
-                    floor = int(floor.strip())
-                    requests = [int(r) for r in requests.split(",") if r.strip()] #Converting the values into integers
+                    #if we haven't handled the line yet, then this will be a line containing a floor and all the requests from that floor
+                    floor, requests = line.split(":") #splitting at the colon: before the colon - the floor, after the colon - all the requests from that floor
+                    floor = int(floor.strip()) #assiging the digit before the colon to floor, removing any whitespace and converting it to an integer 
+                    requests = [int(r) for r in requests.split(",") if r.strip()] #splitting the values after the colon at the commas, stripping each value of whitespace, converting it to an int and adding it to the requests list
                     floor_requests[floor] = requests #Putting the values into the dictionary
+
+                #displaying the building information - the number of floors and capacity of the lift
                 print("Building information:")
                 print(f"Number of floors: {building_info['num_floors']}")
                 print(f"Lift capacity: {building_info['capacity']} \n")
 
+                #displaying the requests from each floor
                 print("Floor Requests:")
                 for floor, requests in floor_requests.items():
-                    print(f"  Floor {floor}: {requests if requests else 'No requests'}")
-                return building_info, floor_requests
-        except FileNotFoundError:
+                    print(f"  Floor {floor}: {requests if requests else 'No requests'}") #printing ghe floor number, and "No requests" if the requests list for that floor is empty, otherwise, printing the request list
+                return building_info, floor_requests #returning these so they can be used by the lift() function, and the functions called from lift()
+            
+        except FileNotFoundError: #if the file cannot be found
             print(f"Error: The file '{file}' cannot be found. Please try again.")
-        except ValueError:
+        except ValueError: #if the format of the file is invalid
             print(f"Error: Invalid file format, please try again.")
-        except Exception as e:
+        except Exception as e: #any other exceptions
             print(f"An unexpected error occured: {e}. Please try again.")
 
-
-#broke down the lift function into smaller functions - Livi
 def dropping_passengers(current_floor, passengers_on_board, direction_of_travel, floor_requests):
         """This function is called to drop off passengers on designated floors"""
         passengers_to_drop = [p for p in passengers_on_board if p == current_floor]
