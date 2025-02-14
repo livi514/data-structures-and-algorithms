@@ -145,6 +145,10 @@ def new_requests(current_floor, floor_requests, top_floor, passengers_on_board):
         either True or False, with True meaning that lift() should stop executing / exiting the program
         
     """
+    # Check if there are no more requests or passengers
+    if not any(floor_requests.values()) and not passengers_on_board:
+        return floor_requests, True
+
     user_input = input("Please enter a floor for a new request or press enter if there are no new requests. Enter 'exit' to stop the program: ")
     print(f"New user input: {user_input}")
     
@@ -153,12 +157,7 @@ def new_requests(current_floor, floor_requests, top_floor, passengers_on_board):
         print(f"Current requests: {floor_requests}")
         return floor_requests, True #True here corresponds to exiting the program
     
-    elif user_input.strip() == "": 
-        print("No new requests.")
-        print(f"Current passengers on lift: {passengers_on_board}")
-        return floor_requests, False
-    
-    if user_input.isdigit():
+    elif user_input.isdigit():
         new_floor = int(user_input)
         if new_floor == current_floor: 
             print(f"Passenger is already at floor {new_floor}.") 
@@ -172,9 +171,10 @@ def new_requests(current_floor, floor_requests, top_floor, passengers_on_board):
             print(f"Invalid input. Please enter a floor between 1 and {top_floor}.")
         return floor_requests, False
     
-    # Check if there are no more requests or passengers
-    if not any(floor_requests.values()) and not passengers_on_board:
-        return floor_requests, True
+    else: #if the user presses enter, this means there are no new requests. If the user inputs something other than "exit" or a digit, then it will be assumed that they want to contimue without adding new requests.
+        print("No new requests.")
+        print(f"Current passengers on lift: {passengers_on_board}")
+        return floor_requests, False #return False, as the user doesn't want to exit the program, there are just no new requests
 
 def checking_for_requests(passengers_on_board, floor_requests):
     """Checking if there are any remaining requests"""
