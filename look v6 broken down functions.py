@@ -138,6 +138,12 @@ def new_requests(current_floor, floor_requests, top_floor, passengers_on_board):
         top_floor (int): the number corresponding to the top floor of the building
         passengers_on_board (list): a list of the requests of every passenger currently on the lift (an integer for each passenger, representing the floor they want to get off at)
 
+    Returns: 
+        floor_requests (dictionary): stores the requests at each floor
+            - keys- the floor numbers  
+            - values - a list of the requests at that floor
+        either True or False, with True meaning that lift() should stop executing / exiting the program
+        
     """
     user_input = input("Please enter a floor for a new request or press enter if there are no new requests. Enter 'exit' to stop the program: ")
     print(f"New user input: {user_input}")
@@ -173,18 +179,6 @@ def new_requests(current_floor, floor_requests, top_floor, passengers_on_board):
 def checking_for_requests(passengers_on_board, floor_requests):
     """Checking if there are any remaining requests"""
     return not passengers_on_board and not any(floor_requests.values())
-
-'''
-def checking_for_requests(passengers_on_board, floor_requests):
-    """Checking if there are any remaining requests"""
-    """if not passengers_on_board and not any(floor_requests.values()):
-        print("All requests fulfilled. Lift is idle.")
-        print(f"Current Floor: {current_floor}")
-        print(f"Current state of the lift: {floor_requests}")
-        return True
-    return False"""
-    return not passengers_on_board and not any(floor_requests.values())#commented the above out and made it to return True if it there are no passengers or pending requests - Kim
-'''
 
 def changing_direction(current_floor, direction_of_travel, floor_requests):
     #Checking if the lift needs to change directions
