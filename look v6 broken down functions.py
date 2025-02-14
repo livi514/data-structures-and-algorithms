@@ -1,7 +1,6 @@
-#will continue comments and docstrings later - Livi
 def input_file():
     '''
-    Processes an input file, storing the number of floors and capacity of the lift in the dictionary "building_info" and the requests at each floor in "floor_requests.
+    Processes an input file, storing the number of floors and capacity of the lift in the dictionary "building_info" and the requests at each floor in "floor_requests".
 
     Arguments: None
 
@@ -9,7 +8,7 @@ def input_file():
 
         building_info (dictionary): stores the number of floors in the building and the capacity of the lift
         - keys - "num_floors", "capacity"
-        - values - the number of floors in the buikding (for num_floors) and the capacity of the lift (for capacity)
+        - values - the number of floors in the building (for num_floors) and the capacity of the lift (for capacity)
 
         floor_requests (dictionary): stores the requests at each floor
         - keys- the floor numbers  
@@ -56,7 +55,7 @@ def input_file():
 
                 #displaying the requests from each floor
                 print("Floor Requests:")
-                for floor, requests in floor_requests.items():
+                for floor, requests in sorted(floor_requests.items()):
                     print(f"  Floor {floor}: {requests if requests else 'No requests'}") #printing ghe floor number, and "No requests" if the requests list for that floor is empty, otherwise, printing the request list
                 return building_info, floor_requests #returning these so they can be used by the lift() function, and the functions called from lift()
             
@@ -65,9 +64,9 @@ def input_file():
         except ValueError: #if the format of the file is invalid
             print(f"Error: Invalid file format, please try again.")
         except Exception as e: #any other exceptions
-            print(f"An unexpected error occured: {e}. Please try again.")
+            print(f"An unexpected error occurred: {e}. Please try again.")
 
-def dropping_passengers(current_floor, passengers_on_board, direction_of_travel, floor_requests):
+def dropping_passengers(current_floor, passengers_on_board, direction_of_travel, floor_requests, building_info):
         """
         This function is called to drop off passengers on designated floors
 
@@ -83,23 +82,37 @@ def dropping_passengers(current_floor, passengers_on_board, direction_of_travel,
             passengers_on_board (list): a list of the requests of every passenger currently on the lift (an integer for each passenger, representing the floor they want to get off at)
         """
         
-        passengers_to_drop = [p for p in passengers_on_board if p == current_floor]
-        passengers_on_board = [p for p in passengers_on_board if p != current_floor]
+        passengers_to_drop = [p for p in passengers_on_board if p == current_floor] 
+        passengers_on_board = [p for p in passengers_on_board if p != current_floor] 
         if passengers_to_drop:
             print(f"Dropping off {len(passengers_to_drop)} passenger(s) at floor {current_floor}")
             print(f"Going {direction_of_travel}")
             print(f"Floor {current_floor}")
-            print(f"Capacity available: {len(passengers_on_board)}")
+            print(f"Capacity available: {building_info["capacity"] - len(passengers_on_board)}")
             print(f"Current passengers on lift: {len(passengers_on_board)}")
             print(f"Current floor requests: {floor_requests}")
 
         return passengers_on_board
 
 def picking_up_passengers(current_floor, passengers_on_board, floor_requests, max_capacity, direction_of_travel):
-    """This will pick up new passengers in there is space on the lift"""
+    """This function will pick up new passengers if there is space on the lift
+    
+    Arguments:
+        current_floor (int): the floor that the lift is currently at
+        passengers_on_board (list): a list of the requests of every passenger currently on the lift (an integer for each passenger, representing the floor they want to get off at)
+        floor_requests (dictionary): stores the requests at each floor
+            - keys- the floor numbers  
+            - values - a list of the requests at that floor
+        max_capacity (int): the maximum capacity of the lift
+         direction_of_travel (string): either "up" or "down", the direction the lift is currently travelling in
+
+    Returns:
+        passengers_on_board (list): a list of the requests of every passenger currently on the lift (an integer for each passenger, representing the floor they want to get off at)
+
+    """
     new_passengers = []
-    if current_floor in floor_requests:
-        while floor_requests[current_floor] and len(passengers_on_board) < max_capacity:
+    if current_floor in floor_requests: #if there are requests for the current floor
+        while floor_requests[current_floor] and len(passengers_on_board) < max_capacity:  #adding new passengers to the "new_passengers" list, while there are passengers on the current floor and while there is space for them in the lift
             new_passenger = floor_requests[current_floor].pop(0)
             passengers_on_board.append(new_passenger)
             new_passengers.append(new_passenger)
@@ -114,39 +127,52 @@ def picking_up_passengers(current_floor, passengers_on_board, floor_requests, ma
     
     return passengers_on_board
     
-def new_requests(current_floor, floor_requests, top_floor):
-    """Allows for real time requests"""
-    user_input = input("Please enter a floor for a new request or press enter if there are no new requests. Enter 'exit' to stop the program: ") #gave them an option if there are no new requests but they still want to continue the program - Livi
+def new_requests(current_floor, floor_requests, top_floor, passengers_on_board):
+    """This function allows for real-time requests
+    
+    Arguments: 
+        current_floor (int): the floor that the lift is currently at
+        floor_requests (dictionary): stores the requests at each floor
+            - keys- the floor numbers  
+            - values - a list of the requests at that floor
+        top_floor (int): the number corresponding to the top floor of the building
+        passengers_on_board (list): a list of the requests of every passenger currently on the lift (an integer for each passenger, representing the floor they want to get off at)
+
+    """
+    user_input = input("Please enter a floor for a new request or press enter if there are no new requests. Enter 'exit' to stop the program: ")
     print(f"New user input: {user_input}")
     
     if user_input == "exit":
         print("Lift is stopping.")
         print(f"Current requests: {floor_requests}")
-        return floor_requests, True
+        return floor_requests, True #True here corresponds to exiting the program
     
-
-    elif user_input.strip() == "": #if there are no new requests but the program is continuing - Livi
+    elif user_input.strip() == "": 
         print("No new requests.")
-        print(f"Current passengers on lift: {floor_requests}")
+        print(f"Current passengers on lift: {passengers_on_board}")
+        return floor_requests, False
     
     if user_input.isdigit():
         new_floor = int(user_input)
-        if new_floor == current_floor: #added this so that the request can't be the same as the current floor - Livi
-            print(f"Passenger is already at floor {new_floor}.") #this message is printed, and the request is ignored/not added to the list - Livi
-        elif 1 <= new_floor <= top_floor:#Checking if the input is within the building for info
+        if new_floor == current_floor: 
+            print(f"Passenger is already at floor {new_floor}.") 
+        elif 1 <= new_floor <= top_floor:
             print(f"New request added: floor {current_floor} -> {new_floor}")
             if current_floor not in floor_requests:
-                floor_requests[current_floor] = [] # Issue with updating the dictionary.Not sure how to fix that yet - Kim
+                floor_requests[current_floor] = []
             floor_requests[current_floor].append(new_floor)
-            print(f"Current passengers on lift: {floor_requests}")
+            print(f"Current passengers on lift: {passengers_on_board}")
         else:
             print(f"Invalid input. Please enter a floor between 1 and {top_floor}.")
+        return floor_requests, False
     
-    return floor_requests, False
+    # Check if there are no more requests or passengers
+    if not any(floor_requests.values()) and not passengers_on_board:
+        return floor_requests, True
 
 def checking_for_requests(passengers_on_board, floor_requests):
     """Checking if there are any remaining requests"""
-    return not passengers_on_board and all(not reqs for reqs in floor_requests.values())
+    return not passengers_on_board and not any(floor_requests.values())
 
 '''
 def checking_for_requests(passengers_on_board, floor_requests):
@@ -181,7 +207,6 @@ def moving_lift(current_floor, direction_of_travel):
     
 #edited this function so that it handles capacity without affecting the building info - Livi 
 def lift():
-    """Main lift simulation"""
     building_info, floor_requests = input_file()
     top_floor = building_info["num_floors"]
     bottom_floor = 1
@@ -190,10 +215,10 @@ def lift():
     passengers_on_board = []
 
     while True:
-        passengers_on_board = dropping_passengers(current_floor, passengers_on_board, direction_of_travel, floor_requests)
+        passengers_on_board = dropping_passengers(current_floor, passengers_on_board, direction_of_travel, floor_requests, building_info)
         passengers_on_board = picking_up_passengers(current_floor, passengers_on_board, floor_requests, building_info['capacity'], direction_of_travel)
 
-        floor_requests, exit_program = new_requests(current_floor, floor_requests, top_floor)
+        floor_requests, exit_program = new_requests(current_floor, floor_requests, top_floor, passengers_on_board)
         if exit_program:
             break
 
@@ -201,6 +226,7 @@ def lift():
         floor_requests = {floor: reqs for floor, reqs in floor_requests.items() if reqs}
 
         if checking_for_requests(passengers_on_board, floor_requests):
+            print("All requests fulfilled. Lift is now idle.")
             break
 
         direction_of_travel = changing_direction(current_floor, direction_of_travel, floor_requests)
