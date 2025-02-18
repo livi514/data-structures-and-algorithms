@@ -81,31 +81,32 @@ def picking_up_passengers(passengers_on_board, max_capacity):
     return new_passengers, passengers_on_board
 
 def new_requests(passengers_on_board):
-    user_input = input("Please enter a floor for a new request or press enter if there are no new requests. Enter 'exit' to stop the program: ") #gave them an option if there are no new requests but they still want to continue the program - Livi
+    user_input = input("Please enter a floor for a new request or press enter if there are no new requests. Enter 'exit' to stop the program: ") 
     print(f"New user input: {user_input}")
     exit = False
     if user_input == "exit":
         print("Lift is stopping.")
         exit = True
-    elif user_input.strip() == "": #if there are no new requests but the program is continuing - Livi
+    elif user_input.strip() == "":  #if there are no new requests but the program is continuing
         print("No new requests.")
         print(f"Current passengers on lift: {passengers_on_board}")
     elif user_input.isdigit():
         new_floor = int(user_input)
-        if new_floor == current_floor: #added this so that the request can't be the same as the current floor - Livi
-            print(f"Passenger is already at floor {new_floor}.") #this message is printed, and the request is ignored/not added to the list - Livi
-        elif 1 <= new_floor <= top_floor:#Checking if the input is within the building for info
+        if new_floor == current_floor:  #check if the request is the same as the current floor
+            print(f"Passenger is already at floor {new_floor}.")  #ignore the request if it's the current floor
+        elif 1 <= new_floor <= top_floor:  #check if the input is within valid floor range
             print(f"New request added: floor {current_floor} -> {new_floor}")
-            floor_requests.setdefault(current_floor, []).append(new_floor) #tried editing this but it's not helping - Livi
+            floor_requests.setdefault(new_floor, []).append(new_floor)  #add request to the correct floor
             print(f"Current passengers on lift: {passengers_on_board}")
         else:
             print(f"Invalid input. Please enter a floor between 1 and {top_floor}.")
     else:
-        print(f"Invalid input. Please enter a floor between 1 and {top_floor}, press  enter if there are no new requests, or enter 'exit' to stop the program.")
+        print(f"Invalid input. Please enter a floor between 1 and {top_floor}, press enter if there are no new requests, or enter 'exit' to stop the program.")
     return floor_requests, exit
 
 def checking_for_requests(passengers_on_board):
     exit = False
+    # Check if there are no more passengers and no more requests
     if not passengers_on_board and not any(floor_requests.values()):
         print("All requests fulfilled. Lift is idle.")
         print(f"Current Floor: {current_floor}")
@@ -134,22 +135,22 @@ def lift():
     max_capacity = building_info["capacity"]
 
     while True:
-
         passengers_to_drop, passengers_on_board = dropping_passengers(passengers_on_board)
         
-        # Picking up passengers (while within capacity)
+        #picking up passengers (while within capacity)
         new_passengers, passengers_on_board = picking_up_passengers(passengers_on_board, max_capacity)
 
+        #handling new user requests
         floor_requests, exit = new_requests(passengers_on_board)
-        if exit == True:
-            break #exits the lift() function and stops the execution of the lift
+        if exit:
+            break  # Stop the simulation if the user exits
 
-        #Checking if there are any more requests in the input file not fulfiled
+        #checking if there are any more requests that need to be fulfilled
         exit = checking_for_requests(passengers_on_board)
-        if exit == True:
-            break
+        if exit:
+            break  # Stop if all requests are fulfilled
 
-        #checking if we need to change direction, changing direction if needed
+        #changing direction if necessary
         direction_of_travel = changing_direction(current_floor, direction_of_travel)
         
         #moving the lift to the next floor
