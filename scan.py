@@ -56,13 +56,15 @@ current_floor = bottom_floor
 direction_of_travel = "up"
 
 def dropping_passengers(passengers_on_board):
-  passengers_to_drop = [p for p in passengers_on_board if p == current_floor]
-  passengers_on_board = [p for p in passengers_on_board if p != current_floor]
+    passengers_to_drop = [p for p in passengers_on_board if p == current_floor]
+    passengers_on_board = [p for p in passengers_on_board if p != current_floor]
 
-  if passengers_to_drop:
-    print(f"Dropping off {len(passengers_to_drop)} passenger(s) at floor {current_floor}")
-    print(f"Going {direction_of_travel}")
-    print(f"Capacity available: {len(passengers_on_board)}")
+    if passengers_to_drop:
+        print(f"Dropping off {len(passengers_to_drop)} passenger(s) at floor {current_floor}")
+        print(f"Going {direction_of_travel}")
+        print(f"Capacity available: {len(passengers_on_board)}")
+    
+    # Ensure the function always returns a tuple
     return passengers_to_drop, passengers_on_board
   
 def picking_up_passengers(passengers_on_board, max_capacity):

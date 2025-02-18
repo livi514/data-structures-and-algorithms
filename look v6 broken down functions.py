@@ -88,7 +88,7 @@ def dropping_passengers(current_floor, passengers_on_board, direction_of_travel,
             print(f"Dropping off {len(passengers_to_drop)} passenger(s) at floor {current_floor}")
             print(f"Going {direction_of_travel}")
             print(f"Floor {current_floor}")
-            print(f"Capacity available: {building_info["capacity"] - len(passengers_on_board)}")
+            print(f"Capacity available: {building_info['capacity'] - len(passengers_on_board)}")
             print(f"Current passengers on lift: {len(passengers_on_board)}")
             print(f"Current floor requests: {floor_requests}")
 
@@ -126,7 +126,7 @@ def picking_up_passengers(current_floor, passengers_on_board, floor_requests, ma
             print(f"Remaining capacity: {max_capacity -len(passengers_on_board)}")
     
     return passengers_on_board
-    
+
 def new_requests(current_floor, floor_requests, top_floor, passengers_on_board):
     """This function allows for real-time requests
     
@@ -147,20 +147,19 @@ def new_requests(current_floor, floor_requests, top_floor, passengers_on_board):
     """
     # Check if there are no more requests or passengers
     if not any(floor_requests.values()) and not passengers_on_board:
-        return floor_requests, True
+        return floor_requests, True  # True to exit
 
     user_input = input("Please enter a floor for a new request or press enter if there are no new requests. Enter 'exit' to stop the program: ")
     print(f"New user input: {user_input}")
-    
+
     if user_input == "exit":
         print("Lift is stopping.")
-        print(f"Current requests: {floor_requests}")
-        return floor_requests, True #True here corresponds to exiting the program
-    
+        return floor_requests, True  # True here corresponds to exiting the program
+
     elif user_input.isdigit():
         new_floor = int(user_input)
-        if new_floor == current_floor: 
-            print(f"Passenger is already at floor {new_floor}.") 
+        if new_floor == current_floor:
+            print(f"Passenger is already at floor {new_floor}.")
         elif 1 <= new_floor <= top_floor:
             print(f"New request added: floor {current_floor} -> {new_floor}")
             if current_floor not in floor_requests:
@@ -169,12 +168,10 @@ def new_requests(current_floor, floor_requests, top_floor, passengers_on_board):
             print(f"Current passengers on lift: {passengers_on_board}")
         else:
             print(f"Invalid input. Please enter a floor between 1 and {top_floor}.")
-        return floor_requests, False
-    
-    else: #if the user presses enter, this means there are no new requests. If the user inputs something other than "exit" or a digit, then it will be assumed that they want to contimue without adding new requests.
+    else:
         print("No new requests.")
         print(f"Current passengers on lift: {passengers_on_board}")
-        return floor_requests, False #return False, as the user doesn't want to exit the program, there are just no new requests
+    return floor_requests, False  # Continue running
 
 def checking_for_requests(passengers_on_board, floor_requests):
     """Checking if there are any remaining requests"""
@@ -219,6 +216,7 @@ def lift():
         # Clean up empty requests
         floor_requests = {floor: reqs for floor, reqs in floor_requests.items() if reqs}
 
+        # Stop the lift if there are no requests or passengers
         if checking_for_requests(passengers_on_board, floor_requests):
             print("All requests fulfilled. Lift is now idle.")
             break
@@ -226,5 +224,6 @@ def lift():
         direction_of_travel = changing_direction(current_floor, direction_of_travel, floor_requests)
         if any(floor_requests.values()) or passengers_on_board:
             current_floor = moving_lift(current_floor, direction_of_travel)
+
 
 lift()
