@@ -116,7 +116,115 @@ No more requests and  no more passengers  on board - program should stop
 
 Testing input.txt with LOOK
 
+Results should be identical to SCAN algorithm, except the program should check at each floor whether there are any remaining requests for floors above/below the current floor (based on the direction of travel).
 
+Testing input.txt with MYLIFT
+
+Starting at bottom floor (floor 1)
+
+floor 1:
+picking up 2 passengers
+not dropping off any passengers
+passengers = [3,5]
+remaining capacity = 2
+1: 
+2: 4
+3:
+4: 1
+5:
+
+floor 2:
+picking up 1 passenger
+not dropping off any passengers
+passengers = [3,5,4]
+remaining capacity = 1
+1: 
+2: 
+3:
+4: 1
+5:
+
+floor 3:
+not picking up any passengers 
+dropping off 1 passenger
+passengers = [5,4]
+remaining capacity = 2
+1: 
+2: 
+3:
+4: 1
+5:
+
+floor 4:
+not picking up the passenger, as the direction he wants to go in does not correspond to the current direction of travel of the lift
+dropping off 1 passenger
+passengers = [5]
+remaining capacity = 3
+1: 
+2: 
+3:
+4: 1
+5:
+
+floor 5:
+not picking up any passengers
+dropping off 1 passenger
+passengers = []
+remaining capacity = 4
+1: 
+2: 
+3:
+4: 1
+5:
+
+changing direction 
+
+floor 4
+now we can pick up the passenger, as now the direction of the lift corresponds to the direction that he wants to go in 
+not dropping off any passengers 
+passengers = [1]
+remaining capacity = 3
+1: 
+2: 
+3:
+4: 
+5:
+
+floor 3:
+not dropping off/picking up any passengers
+passengers  = [1]
+remaining capacity = 3
+1: 
+2: 
+3:
+4: 
+5:
+
+floor 2:
+not dropping off/picking up any passengers
+passengers  = [1]
+remaining capacity = 3
+1: 
+2: 
+3:
+4: 
+5:
+
+floor 1:
+dropping off 1 passenger
+not picking up any passengers
+passengers  = []
+remaining capacity = 4
+not dropping off/picking up any passengers
+passengers  = [1]
+remaining capacity = 3
+1: 
+2: 
+3:
+4: 
+5:
+
+no more requests to service, program stops
 
 2. Testing input2.txt
 How to run this test:

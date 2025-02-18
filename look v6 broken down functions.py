@@ -67,32 +67,33 @@ def input_file():
             print(f"An unexpected error occurred: {e}. Please try again.")
 
 def dropping_passengers(current_floor, passengers_on_board, direction_of_travel, floor_requests, building_info):
-        """
-        This function is called to drop off passengers on designated floors
-
-        Arguments: 
-            current_floor (int): the floor that the lift is currently at
-            passengers_on_board (list): a list of the requests of every passenger currently on the lift (an integer for each passenger, representing the floor they want to get off at)
-            direction_of_travel (string): either "up" or "down", the direction the lift is currently travelling in
-            floor_requests (dictionary): stores the requests at each floor
+    """
+    This function is called to drop off passengers on designated floors.
+    
+    Arguments: 
+        current_floor (int): the floor that the lift is currently at
+        passengers_on_board (list): a list of the requests of every passenger currently on the lift (an integer for each passenger, representing the floor they want to get off at)
+        direction_of_travel (string): either "up" or "down", the direction the lift is currently travelling in
+        floor_requests (dictionary): stores the requests at each floor
             - keys- the floor numbers  
             - values - a list of the requests at that floor
-
-        Returns: 
-            passengers_on_board (list): a list of the requests of every passenger currently on the lift (an integer for each passenger, representing the floor they want to get off at)
-        """
+        building_info (dict): stores the lift's capacity and other information (e.g., num_floors)
         
-        passengers_to_drop = [p for p in passengers_on_board if p == current_floor] 
-        passengers_on_board = [p for p in passengers_on_board if p != current_floor] 
-        if passengers_to_drop:
-            print(f"Dropping off {len(passengers_to_drop)} passenger(s) at floor {current_floor}")
-            print(f"Going {direction_of_travel}")
-            print(f"Floor {current_floor}")
-            print(f"Capacity available: {building_info['capacity'] - len(passengers_on_board)}")
-            print(f"Current passengers on lift: {len(passengers_on_board)}")
-            print(f"Current floor requests: {floor_requests}")
-
-        return passengers_on_board
+    Returns: 
+        passengers_on_board (list): a list of the requests of every passenger currently on the lift
+    """
+    passengers_to_drop = [p for p in passengers_on_board if p == current_floor]
+    passengers_on_board = [p for p in passengers_on_board if p != current_floor]  # Remove dropped off passengers
+    
+    if passengers_to_drop:
+        print(f"Dropping off {len(passengers_to_drop)} passenger(s) at floor {current_floor}")
+        print(f"Going {direction_of_travel}")
+        print(f"Floor {current_floor}")
+        print(f"Capacity available: {building_info['capacity'] - len(passengers_on_board)}")
+        print(f"Current passengers on lift: {len(passengers_on_board)}")
+        print(f"Current floor requests: {floor_requests}")
+    
+    return passengers_on_board  # Updated passenger list after drop-off
 
 def picking_up_passengers(current_floor, passengers_on_board, floor_requests, max_capacity, direction_of_travel):
     """This function will pick up new passengers if there is space on the lift
@@ -104,26 +105,22 @@ def picking_up_passengers(current_floor, passengers_on_board, floor_requests, ma
             - keys- the floor numbers  
             - values - a list of the requests at that floor
         max_capacity (int): the maximum capacity of the lift
-         direction_of_travel (string): either "up" or "down", the direction the lift is currently travelling in
+        direction_of_travel (string): either "up" or "down", the direction the lift is currently travelling in
 
     Returns:
-        passengers_on_board (list): a list of the requests of every passenger currently on the lift (an integer for each passenger, representing the floor they want to get off at)
-
+        passengers_on_board (list): a list of the requests of every passenger currently on the lift
     """
     new_passengers = []
-    if current_floor in floor_requests: #if there are requests for the current floor
-        while floor_requests[current_floor] and len(passengers_on_board) < max_capacity:  #adding new passengers to the "new_passengers" list, while there are passengers on the current floor and while there is space for them in the lift
-            new_passenger = floor_requests[current_floor].pop(0)
+    if current_floor in floor_requests:  # If there are requests for the current floor
+        while floor_requests[current_floor] and len(passengers_on_board) < max_capacity:  # While there's space in the lift
+            new_passenger = floor_requests[current_floor].pop(0)  # Take the first request
             passengers_on_board.append(new_passenger)
             new_passengers.append(new_passenger)
 
         if new_passengers:
             print(f"Picking up {len(new_passengers)} passenger(s) at floor {current_floor}")
             print(f"Current passengers on lift: {len(passengers_on_board)}")
-            print(f"Current floor requests: {floor_requests}")
-            print(f"Going {direction_of_travel}")
-            print(f"Floor {current_floor}")
-            print(f"Remaining capacity: {max_capacity -len(passengers_on_board)}")
+            print(f"Remaining capacity: {max_capacity - len(passengers_on_board)}")
     
     return passengers_on_board
 
@@ -224,6 +221,5 @@ def lift():
         direction_of_travel = changing_direction(current_floor, direction_of_travel, floor_requests)
         if any(floor_requests.values()) or passengers_on_board:
             current_floor = moving_lift(current_floor, direction_of_travel)
-
 
 lift()
