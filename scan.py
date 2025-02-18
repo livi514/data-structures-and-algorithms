@@ -5,6 +5,9 @@ while travelling in that direction
 '''
 import time
 
+'''
+input_file asks user to enter a lift file name and reads the file to 
+'''
 def input_file():
     while True:
         floor_requests = {}
