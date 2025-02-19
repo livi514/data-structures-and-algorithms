@@ -483,3 +483,273 @@ remaining capacity = 5
 
 No more requests or passengers on the lift - program should stop.
 
+Testing input2.txt with LOOK
+
+Starting at the bottom floor (floor 1)
+
+floor 1:
+not dropping off any passengers
+picking up 2 passengers
+passengers = [4,6]
+remaining capacity = 3
+1: 
+2: 3, 5, 7 
+3: 8 
+4: 2, 5
+5: 6, 1 
+6: 7 
+7: 4, 2 
+8: 3 
+
+floor 2:
+not dropping off any passengers
+picking up 3 passengers 
+passengers = [4,6,3,5,7]
+remaining capacity = 0
+1: 
+2:  
+3: 8 
+4: 2, 5
+5: 6, 1 
+6: 7 
+7: 4, 2 
+8: 3 
+
+floor 3:
+dropping off 1 passenger
+picking up 1 passenger
+passengers  = [4,6,5,7,8]
+remaining capacity = 0
+1: 
+2:  
+3:  
+4: 2, 5
+5: 6, 1 
+6: 7 
+7: 4, 2 
+8: 3 
+
+floor 4:
+dropping off 1 passenger 
+can only pick up 1 out of 2 passengers
+passengers = [6,5,7,8,2]
+remaining capacity = 0
+1: 
+2:  
+3:  
+4: 5
+5: 6, 1 
+6: 7 
+7: 4, 2 
+8: 3 
+
+floor 5:
+dropping off 1 passenger
+picking up 1 out of 2 passengers
+passengers = [6,7,8,2,6]
+remaining capacity = 0
+1: 
+2:  
+3:  
+4: 5
+5: 1 
+6: 7 
+7: 4, 2 
+8: 3 
+
+floor 6:
+dropping off 2 passengers  
+picking up 1 passenger
+passengers  = [7,8,2,7]
+remaining capacity = 1
+1: 
+2:  
+3:  
+4: 5
+5: 1 
+6: 
+7: 4, 2 
+8: 3 
+
+floor 7:
+dropping off 2 passengers
+picking up 2 passengers  
+passengers = [8,2,4,2]
+remaining capacity = 1
+1: 
+2:  
+3:  
+4: 5
+5: 1 
+6: 
+7: 
+8: 3 
+
+floor 8:
+dropping off 1 passenger
+picking up 1 passenger
+passengers = [2,4,2,3]
+remaining capacity = 1
+1: 
+2:  
+3:  
+4: 5
+5: 1 
+6: 
+7: 
+8: 
+
+floor 7:
+not dropping off/picking up any passengers
+passengers = [2,4,2,3]
+remaining capacity = 1
+1: 
+2:  
+3:  
+4: 5
+5: 1 
+6: 
+7: 
+8: 
+
+floor 6:
+not dropping off/picking up any passengers
+passengers = [2,4,2,3]
+remaining capacity = 1
+1: 
+2:  
+3:  
+4: 5
+5: 1 
+6: 
+7: 
+8: 
+
+floor 5:
+not dropping off any passengers
+picking up 1 passenger
+passengers = [2,4,2,3,1]
+remaining capacity = 0
+1: 
+2:  
+3:  
+4: 5
+5: 
+6: 
+7: 
+8: 
+
+floor 4:
+dropping off 1 passenger 
+picking up 1 passenger
+passengers = [2,2,3,1,5]
+remaining capacity = 0
+1: 
+2:  
+3:  
+4: 
+5: 
+6: 
+7: 
+8: 
+
+floor 3:
+dropping off 1 passenger
+not picking up any passengers
+passengers = [2,2,1,5]
+remaining capacity = 1
+1: 
+2:  
+3:  
+4: 
+5: 
+6: 
+7: 
+8: 
+
+floor 2:
+dropping off 2 passengers 
+not picking up any passengers 
+passengers = [1,5]
+remaining capacity = 3
+1: 
+2:  
+3:  
+4: 
+5: 
+6: 
+7: 
+8: 
+
+floor 1:
+dropping off 1 passenger
+not picking up any passengers 
+passengers = [5]
+remaining capacity = 4
+1: 
+2:  
+3:  
+4: 
+5: 
+6: 
+7: 
+8: 
+
+lift changes direction 
+
+floor 2:
+not dropping off/picking up any passengers 
+passengers = [5]
+remaining capacity = 4
+1: 
+2:  
+3:  
+4: 
+5: 
+6: 
+7: 
+8: 
+
+floor 3:
+not dropping off/picking up any passengers 
+passengers = [5]
+remaining capacity = 4
+1: 
+2:  
+3:  
+4: 
+5: 
+6: 
+7: 
+8: 
+
+floor 4:
+not dropping off/picking up any passengers 
+passengers = [5]
+remaining capacity = 4
+1: 
+2:  
+3:  
+4: 
+5: 
+6: 
+7: 
+8: 
+
+floor 5:
+dropping off one passenger 
+not picking up any passengers 
+passengers = []
+remaining capacity = 5
+1: 
+2:  
+3:  
+4: 
+5: 
+6: 
+7: 
+8: 
+
+program stops
+
+

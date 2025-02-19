@@ -174,17 +174,19 @@ def checking_for_requests(passengers_on_board, floor_requests):
     """Checking if there are any remaining requests"""
     return not passengers_on_board and not any(floor_requests.values())
 
-def changing_direction(current_floor, direction_of_travel, floor_requests):
+def changing_direction(current_floor, direction_of_travel, floor_requests, passengers_on_board):
     #Checking if the lift needs to change directions
     #I changed this code so that if there are no more requests in the current direction, the lift changes direction - Livi
-    requests_above = any(floor > current_floor and floor_requests.get(floor) for floor in floor_requests)
-    requests_below = any(floor < current_floor and floor_requests.get(floor) for floor in floor_requests)
+    pickup_above = any(floor > current_floor and floor_requests.get(floor) for floor in floor_requests)
+    pickup_below = any(floor < current_floor and floor_requests.get(floor) for floor in floor_requests)
+    dropoff_above = any(request > current_floor for request in passengers_on_board)
+    dropoff_below = any(request < current_floor for request in passengers_on_board)
 
     #deciding if the lift should change direction
     #if we have no more requests in the current direction or we reach the top/bottom floor, the lift switches directions
-    if direction_of_travel == "up" and not requests_above:
+    if direction_of_travel == "up" and not pickup_above and not dropoff_above:
         direction_of_travel = "down" 
-    elif direction_of_travel == "down" and not requests_below:
+    elif direction_of_travel == "down" and not pickup_below and not dropoff_below:
         direction_of_travel = "up"
 
     return direction_of_travel
@@ -211,6 +213,7 @@ def lift():
             break
 
         # Clean up empty requests
+
         floor_requests = {floor: reqs for floor, reqs in floor_requests.items() if reqs}
 
         # Stop the lift if there are no requests or passengers
@@ -218,7 +221,7 @@ def lift():
             print("All requests fulfilled. Lift is now idle.")
             break
 
-        direction_of_travel = changing_direction(current_floor, direction_of_travel, floor_requests)
+        direction_of_travel = changing_direction(current_floor, direction_of_travel, floor_requests, passengers_on_board)
         if any(floor_requests.values()) or passengers_on_board:
             current_floor = moving_lift(current_floor, direction_of_travel)
 
