@@ -65,9 +65,9 @@ def change_direction(current_floor, direction, floor_requests, passengers):
     """This function is to determine if the lift should change direction based on remaining requests and the priorities."""
     requests_above = any(floor > current_floor for floor in floor_requests if floor_requests[floor]) or any(p > current_floor for p in passengers)
     requests_below = any(floor < current_floor for floor in floor_requests if floor_requests[floor]) or any(p < current_floor for p in passengers)
-    if direction == "up" and requests_below:
+    if direction == "up" and not requests_above and requests_below:
         return "down"
-    if direction == "down" and requests_above:
+    if direction == "down" and not requests_below and requests_above:
         return "up"
     return direction
 
