@@ -171,12 +171,39 @@ def new_requests(current_floor, floor_requests, top_floor, passengers_on_board):
     return floor_requests, False  # Continue running
 
 def checking_for_requests(passengers_on_board, floor_requests):
-    """Checking if there are any remaining requests"""
+    """Checking if there are any remaining requests
+    
+    Arguments:
+        passengers_on_board (list): a list of the requests of every passenger currently on the lift (an integer for each passenger, representing the floor they want to get off at)
+        floor_requests (dictionary): stores the requests at each floor
+            - keys- the floor numbers  
+            - values - a list of the requests at that floor
+
+    Returns:
+        Either true or false
+        true if there are no more passengers on board and no more requests (passengers waiting to get onto the lift), false otherwise
+        
+    """
     return not passengers_on_board and not any(floor_requests.values())
 
 def changing_direction(current_floor, direction_of_travel, floor_requests, passengers_on_board):
-    #Checking if the lift needs to change directions
-    #I changed this code so that if there are no more requests in the current direction, the lift changes direction - Livi
+    """
+    Checking if the lift needs to change direction, based on two factors:
+    - whether there are still some passengers left to pick up in the current direction (passengers waiting on floors above/below the current floor)
+    - whether there are still some passengers left on the lift that need to be dropped off on a floor in the current direction 
+
+    Arguments:
+        current_floor (int): the floor that the lift is currently at
+        direction_of_travel (string): either "up" or "down", the direction the lift is currently travelling in
+        floor_requests (dictionary): stores the requests at each floor
+            - keys- the floor numbers  
+            - values - a list of the requests at that floor
+        passengers_on_board (list): a list of the requests of every passenger currently on the lift (an integer for each passenger, representing the floor they want to get off at)
+
+    Returns:
+        direction_of_travel (string): either "up" or "down", the direction the lift is currently travelling in
+    """
+
     pickup_above = any(floor > current_floor and floor_requests.get(floor) for floor in floor_requests)
     pickup_below = any(floor < current_floor and floor_requests.get(floor) for floor in floor_requests)
     dropoff_above = any(request > current_floor for request in passengers_on_board)
@@ -192,11 +219,29 @@ def changing_direction(current_floor, direction_of_travel, floor_requests, passe
     return direction_of_travel
 
 def moving_lift(current_floor, direction_of_travel):
-    """Should move the lift up and down"""
+    """
+    Simulates the lift moving up and down, by incrementing or decrementing the value of current_floor depending on the direction of travel
+
+    Arguments:
+        current_floor (int): the floor that the lift is currently at
+        direction_of_travel (string): either "up" or "down", the direction the lift is currently travelling in
+    
+    Returns:
+        current_floor (int): the floor that the lift is currently at (now adjusted based on direction of travel)
+    """
     return current_floor + 1 if direction_of_travel == "up" else current_floor - 1
     
-#edited this function so that it handles capacity without affecting the building info - Livi 
 def lift():
+    """
+    The main function that controls the lift simulation. All other functions are called from it.
+    This function first initialises the key variables for the simulation, then executes the code for the lift simulation, until the user chooses to exit the program, 
+    or until there are no more requests or passengers on board.
+    
+    Arguments: none
+
+    Returns: none
+    """
+
     building_info, floor_requests = input_file()
     top_floor = building_info["num_floors"]
     bottom_floor = 1
@@ -212,11 +257,9 @@ def lift():
         if exit_program:
             break
 
-        # Clean up empty requests
+        floor_requests = {floor: reqs for floor, reqs in floor_requests.items() if reqs} #cleaning up empty requests
 
-        floor_requests = {floor: reqs for floor, reqs in floor_requests.items() if reqs}
-
-        # Stop the lift if there are no requests or passengers
+        #stops the lift if there are no requests or passengers
         if checking_for_requests(passengers_on_board, floor_requests):
             print("All requests fulfilled. Lift is now idle.")
             break

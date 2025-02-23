@@ -3,7 +3,7 @@ import os
 """This code is an improvement to look.py adding in features such as priority"""
 
 def input_file():
-    """Reads the lift configuration file and extracts buildinf ifo and floor if the file is present"""
+    """Reads the lift configuration file and extracts building info and floor if the file is present"""
     while True:
         file_name = input("Enter lift file name: ").strip()
         file_name += ".txt" if not file_name.endswith(".txt") else ""
