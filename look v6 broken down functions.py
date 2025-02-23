@@ -82,18 +82,19 @@ def dropping_passengers(current_floor, passengers_on_board, direction_of_travel,
     Returns: 
         passengers_on_board (list): a list of the requests of every passenger currently on the lift
     """
-    passengers_to_drop = [p for p in passengers_on_board if p == current_floor]
-    passengers_on_board = [p for p in passengers_on_board if p != current_floor]  # Remove dropped off passengers
+    passengers_to_drop = [p for p in passengers_on_board if p == current_floor] #identifies passengers who need to get off at the current floor
+    passengers_on_board = [p for p in passengers_on_board if p != current_floor]  #removing passengers who have just been dropped off
     
+    #if there are passengers to drop off, print relevant lift status information
     if passengers_to_drop:
-        print(f"Dropping off {len(passengers_to_drop)} passenger(s) at floor {current_floor}")
-        print(f"Going {direction_of_travel}")
-        print(f"Floor {current_floor}")
-        print(f"Capacity available: {building_info['capacity'] - len(passengers_on_board)}")
-        print(f"Current passengers on lift: {len(passengers_on_board)}")
-        print(f"Current floor requests: {floor_requests}")
+        print(f"Dropping off {len(passengers_to_drop)} passenger(s) at floor {current_floor}") #prints the number of passengers being dropped off at the current floor 
+        print(f"Going {direction_of_travel}") #printing the current direction of travel
+        print(f"Floor {current_floor}") #printing the number of the current floor
+        print(f"Capacity available: {building_info['capacity'] - len(passengers_on_board)}") #printing the remaining capacity of the lift, which is the maximum capacity of the lift, minus the amount of passengers on board (len(passengers_on_board))
+        print(f"Current passengers on lift: {passengers_on_board}") #printing the list of passengers currently on board
+        print(f"Current floor requests: {floor_requests}") #printing the remaining requests
     
-    return passengers_on_board  # Updated passenger list after drop-off
+    return passengers_on_board  #return updated passenger list after drop-off
 
 def picking_up_passengers(current_floor, passengers_on_board, floor_requests, max_capacity, direction_of_travel):
     """This function will pick up new passengers if there is space on the lift
@@ -110,17 +111,17 @@ def picking_up_passengers(current_floor, passengers_on_board, floor_requests, ma
     Returns:
         passengers_on_board (list): a list of the requests of every passenger currently on the lift
     """
-    new_passengers = []
-    if current_floor in floor_requests:  # If there are requests for the current floor
-        while floor_requests[current_floor] and len(passengers_on_board) < max_capacity:  # While there's space in the lift
-            new_passenger = floor_requests[current_floor].pop(0)  # Take the first request
-            passengers_on_board.append(new_passenger)
-            new_passengers.append(new_passenger)
+    new_passengers = [] #list to track passengers being dropped off at this floor
+    if current_floor in floor_requests:  #if there are requests for the current floor
+        while floor_requests[current_floor] and len(passengers_on_board) < max_capacity:  #while there are requests for the current floor and there is space on the lift
+            new_passenger = floor_requests[current_floor].pop(0)  #take the first passenger waiting at the current floor
+            passengers_on_board.append(new_passenger) #add this passenger to passengers_on_board
+            new_passengers.append(new_passenger) #add this passenger to new_passengers
 
         if new_passengers:
-            print(f"Picking up {len(new_passengers)} passenger(s) at floor {current_floor}")
-            print(f"Current passengers on lift: {len(passengers_on_board)}")
-            print(f"Remaining capacity: {max_capacity - len(passengers_on_board)}")
+            print(f"Picking up {len(new_passengers)} passenger(s) at floor {current_floor}") #printing the number of passengers that have been picked up on this floor
+            print(f"Current passengers on lift: {passengers_on_board}") #printing the updated list of passengers on the lift
+            print(f"Remaining capacity: {max_capacity - len(passengers_on_board)}") #printing the remaining capacity of the lift (max_capacity - the number of passengers on board)
     
     return passengers_on_board
 
@@ -144,14 +145,14 @@ def new_requests(current_floor, floor_requests, top_floor, passengers_on_board):
     """
     # Check if there are no more requests or passengers
     if not any(floor_requests.values()) and not passengers_on_board:
-        return floor_requests, True  # True to exit
+        return floor_requests, True  #true here corresponds to exiting the program
 
     user_input = input("Please enter a floor for a new request or press enter if there are no new requests. Enter 'exit' to stop the program: ")
     print(f"New user input: {user_input}")
 
     if user_input == "exit":
         print("Lift is stopping.")
-        return floor_requests, True  # True here corresponds to exiting the program
+        return floor_requests, True  #true here corresponds to exiting the program
 
     elif user_input.isdigit():
         new_floor = int(user_input)
