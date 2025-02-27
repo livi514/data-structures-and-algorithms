@@ -36,7 +36,7 @@ FUNCTION input_file()
         EXCEPT ValueError
             PRINT error message "Invalid file format, please try again."
         EXCEPT Exception as e
-            PRINT error message with exception e
+            PRINT error messag "An unexpected error occurred. Please try again."
 
 FUNCTION dropping_passengers(passengers_on_board)
     Initialize passengers_to_drop as a list of passengers at the current floor
@@ -164,7 +164,7 @@ FUNCTION input_file()
         EXCEPT ValueError
             PRINT error message "Invalid file format, please try again."
         EXCEPT Exception as e
-            PRINT error message with exception e
+            PRINT error message "An unexpected error occurred. Please try again."
 
 FUNCTION dropping_passengers(current_floor, passengers_on_board, direction_of_travel, floor_requests, building_info)
     Initiaise passengers_to_drop
@@ -278,9 +278,9 @@ FUNCTION input_file()
                         Store floor as integer for all requests and strip whitespaces
             RETURN building_info and floor_requests
         EXCEPT ValueError
-            PRINT Error: "Invalid file format."
+            PRINT error: "Invalid file format."
         EXCEPT Exception as e:
-            PRINT error message with exception e
+            PRINT error "An unexpected error occurred. Please try again."
 
 FUNCTION drop_passengers(current_floor, passengers, building_info) 
     Initialise departing 
