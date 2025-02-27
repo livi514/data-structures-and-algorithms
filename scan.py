@@ -8,8 +8,8 @@ def input_file():
     '''
     input_file asks user to enter a lift file name and reads the file to get the building information and the floor requests. 
     Returns 
-        building_info: number of floors and lift capacity
-        floor_requests: floor numbers as keys and lists of requested floors as values.
+        building_info (dictionary): number of floors and lift capacity
+        floor_requests (dictionary): floor numbers as keys and lists of requested floors as values.
     '''
     while True:
         floor_requests = {}
@@ -64,10 +64,10 @@ def dropping_passengers(passengers_on_board):
     '''
     dropping_passengers drops off passengers at the current floor and prints the current state of the lift. 
     Argument: 
-        passengers_on_board: a list of passengers that are currently in the lift
+        passengers_on_board (list): a list of passengers that are currently in the lift
     Function returns as a tuple:
-        passengers_to_drop: a list of passengers that are currently on the lift
-        passengers_on_board: an updated list of passengers currently in the lift.
+        passengers_to_drop (list): a list of passengers that are currently on the lift
+        passengers_on_board (list): an updated list of passengers currently in the lift.
     '''
     passengers_to_drop = [p for p in passengers_on_board if p == current_floor]
     passengers_on_board = [p for p in passengers_on_board if p != current_floor]
@@ -84,11 +84,11 @@ def picking_up_passengers(passengers_on_board, max_capacity):
     '''
     this function picks up passengers at the current floor and prints the state of the lift (if picking up passengers, current number of passengers in the lift, direction of travel, current floor and remaining capacity. 
     arguments:
-        passengers_on_board: a list of passengers currently in the lift.
-        max_capacity: Maximum capacity of the lift as an integer.
+        passengers_on_board (list): a list of passengers currently in the lift.
+        max_capacity (int): Maximum capacity of the lift as an integer.
     Function returns as a tuple:
-        new_passengers: a list of new passengers that are being picked up at the current floor.
-        passengers_on_board: an updated list of passengers that are currently in the lift.
+        new_passengers (list): a list of new passengers that are being picked up at the current floor.
+        passengers_on_board (list): an updated list of passengers that are currently in the lift.
     '''
     new_passengers = []
     if floor_requests.get(current_floor):
@@ -108,9 +108,9 @@ def new_requests(passengers_on_board):
     '''
     this function handles new user requests for the lift. 
     arguments:
-        passengers_on_board: a list of passengers that are currently in the lift.
+        passengers_on_board (list): a list of passengers that are currently in the lift.
     returns as a tuple:
-        floor_requests: floor numbers as keys and lists of requested floors as values
+        floor_requests (dictionary): floor numbers as keys and lists of requested floors as values
         exit: boolean value indicating whether or not the user wants to exit the program.        
     '''
     user_input = input("Please enter a floor for a new request or press enter if there are no new requests. Enter 'exit' to stop the program: ") 
@@ -140,7 +140,7 @@ def checking_for_requests(passengers_on_board):
     '''
     checking_for_requests checks if there are any requests that still need to be fulfilled.
     arguments:
-        passengers_on_board: a list of passengers that are currently in the lift
+        passengers_on_board (list): a list of passengers that are currently in the lift
     function returns:
         exit: boolean indicating whether or not to exit/quit the program.
     '''
@@ -157,8 +157,8 @@ def changing_direction(current_floor, direction_of_travel):
     '''
     this function changes the direction of travel only if necessary.
     arguments: 
-        current_floor: the current floor the lift is at as an integer.
-        direction_of_travel: current direction of travel as "up" or "down", as a string.
+        current_floor (int): the current floor the lift is at
+        direction_of_travel (string): current direction of travel as "up" or "down"
     function returns:
         direction_of_travel: new direction of travel.
     '''
@@ -172,9 +172,9 @@ def moving_lift(current_floor):
     '''
     this function moves the lift to the next floor.
     arguments:
-        current_floor: the current floor of the lift as an integer
+        current_floor (int): the current floor of the lift
     returns:
-        the new floor of the lift as an integer.
+        current_floor (int): the new floor of the lift as an integer.
     '''
     if direction_of_travel == "up":
         if current_floor < top_floor:
@@ -183,7 +183,7 @@ def moving_lift(current_floor):
         current_floor -= 1
     return current_floor
 
-def lift():
+def lift_system():
     '''
     lift() is the main function that simulates the lift operation. 
     '''
@@ -213,39 +213,5 @@ def lift():
         #moving the lift to the next floor
         current_floor = moving_lift(current_floor)  
 
-lift()
-
-
-
-#previous code:   
-
-'''
-print(f"Starting at floor {currentFloor}")
-while upRequests or downRequests:
-  # sort requests depending on the direction fo travel
-  if direction == "up":
-    requests=upRequests
-    requests.sort()
-    floorInc = 1
-  else:
-    requests=downRequests
-    requests.sort(reverse=True)
-    floorInc = -1
-
-  print(requests)
-  print(f"Lift going {direction}")
-
-  for floor in requests[:]:
-    if (direction == "up" and floor >= currentFloor) or \ 
-       (direction == "down" and floor <= currentFloor):
-         while (currentFloor != floor):
-           currentFloor += floorInc
-           time.sleep(0.25)
-           print(f"Stopping at floor {floor}")
-           time.sleep(1)
-           currentFloor = floor
-           if direction == "up":
-             upRequests.remove(floor)
-           else:
-             downRequests.remove(floor)
-'''
+if __name__ == "__main__":
+    lift_system()

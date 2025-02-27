@@ -232,7 +232,7 @@ def moving_lift(current_floor, direction_of_travel):
     """
     return current_floor + 1 if direction_of_travel == "up" else current_floor - 1
     
-def lift():
+def lift_system():
     """
     The main function that controls the lift simulation. All other functions are called from it.
     This function first initialises the key variables for the simulation, then executes the code for the lift simulation, until the user chooses to exit the program, 
@@ -269,4 +269,5 @@ def lift():
         if any(floor_requests.values()) or passengers_on_board:
             current_floor = moving_lift(current_floor, direction_of_travel)
 
-lift()
+if __name__ == "__main__":
+    lift_system()
