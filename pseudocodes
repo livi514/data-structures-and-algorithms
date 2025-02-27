@@ -123,7 +123,7 @@ FUNCTION lift():
             BREAK
         Call changing_direction(current_floor, direction_of_travel) and update direction_of_travel
         Call moving_lift(current_floor) and update current_floor
-RUN main lift function
+RUN lift system by using main block
 
 
 ## LOOK
@@ -253,7 +253,7 @@ FUNCTION lift()
         CALL changing direction function
         If there are are any requests or passengers on board
             Call moving lift function
-RUN main lift function
+RUN lift system by using main block
 
 ## MY_LIFT
 FUNCTION input_file()
