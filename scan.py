@@ -60,8 +60,6 @@ bottom_floor = 1 #assuming 1 is the ground floor as there's no floor 0 in the in
 current_floor = bottom_floor
 direction_of_travel = "up"
 
-
-
 def dropping_passengers(passengers_on_board):
     '''
     dropping_passengers drops off passengers at the current floor and prints the current state of the lift. 
