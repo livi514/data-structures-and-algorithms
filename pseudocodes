@@ -1,0 +1,346 @@
+## SCAN
+FUNCTION input_file()
+    WHILE True
+        Initialize floor_requests as an empty dictionary
+        Initialize building_info as an empty dictionary
+        Prompt user to enter lift file name and strip whitespaces
+        If document ends with ".txt" assign as document
+            Else
+                ADD ".txt" to document
+        TRY
+            OPEN the file (document)
+                FOR each line in the file
+                    Strip the line of whitespaces
+                    If the line starts with "#" or is empty
+                        CONTINUE
+                    If line contains "," and not ":"
+                        Split the line by ","
+                        Map the values to "num_floors" and "capacity"
+                        Store num_floors and capacity in building_info
+                        CONTINUE
+                    Split the line by ":"
+                    Strip the floor and store as ineteger
+                    Strip the requests and store as integer 
+                    Store the floor number and requests in floor_requests
+                PRINT "Building information:" (num_floors and capacity)
+                PRINT "Number of floors" (num_floors)
+                PRINT "Lift Capacity" (capacity)
+                PRINT "Floor requests:"
+                FOR floors and requests in floor_requests
+                    PRINT floor: requests
+                Else
+                    PRINT No requests.
+                RETURN building_info, floor_requests
+        EXCEPT FileNotFoundError
+            PRINT error message The file cannot be found. Please try again.
+        EXCEPT ValueError
+            PRINT error message Invalid file format, please try again.
+        EXCEPT Exception as e
+            PRINT error message with exception e
+
+FUNCTION dropping_passengers(passengers_on_board)
+    Initialize passengers_to_drop as a list of passengers at the current floor
+    Initialize passengers_on_board as a list of passengers at the current floor
+    If passengers_to_drop exists:
+        PRINT Dropping off passenger(s) at current floor
+        PRINT Going up/down
+        PRINT available capacity
+    RETURN passengers_to_drop, updated passengers_on_board
+
+FUNCTION picking_up_passengers(passengers_on_board, max_capacity)
+    Initialize new_passengers as an empty list
+    If there are requests at the current floor:
+        WHILE there are requests and space is available in the lift
+            Pop a request from floor_requests for current_floor
+            Append new_passenger to passengers_on_board
+            Append new_passenger to new_passengers
+        If new_passengers exists:
+            PRINT pickup message with details about new passengers
+            PRINT current passengers
+            PRINT direction
+            PRINT current floor
+            PRINT remaining capacity
+    RETURN new_passengers, passengers_on_board
+
+FUNCTION new_requests(passengers_on_board)
+    Prompt user to input new floor request 
+    PRINT new user input
+    Initialize exit as False
+    If user input is exit
+        PRINT Lift is stopping
+        SET exit to True
+    Else if user input is empty:
+        PRINT No new requests
+        PRINT current passengers on lift
+    Else if user input is a valid floor number
+        If new floor is the same as the current floor
+            PRINT Passenger is already at current floor
+        Else if new floor is within valid floor range
+            PRINT New request added: current floor to new floor
+            Add new floor request to floor_requests
+            PRINT current passengers on lift
+        Else
+            PRINT Invalid input. Please enter a floor between 1 and top floor
+    Else
+        PRINT Invalid input. Please enter a valid floor or exit
+    RETURN floor_requests, exit
+
+FUNCTION checking_for_requests(passengers_on_board)
+    Initialize exit as False
+    If no passengers and no remaining requests
+        PRINT All requests fulfilled. Lift is idle.
+        PRINT current floor 
+        PRINT floor requests
+        SET exit to True
+    RETURN exit
+
+FUNCTION changing_direction(current_floor, direction_of_travel)
+    If direction is up and at top floor
+        SET direction_of_travel to down
+    Else if direction is down and at bottom floor
+        SET direction_of_travel to up
+    RETURN direction_of_travel
+
+FUNCTION moving_lift(current_floor)
+    If direction is up 
+        Check if at top floor and if so, increment current_floor by 1
+        Else
+            Check if direction is "down" and if not at bottom floor, decrement current_floor by 1     
+    RETURN current_floor
+
+FUNCTION lift():
+    CALL direction_of_travel and current_floor 
+    Initialize passengers_on_board as an empty list
+    SET max_capacity to building_info capacity
+    WHILE True:
+        CALL dropping_passengers function for passengers_on_board 
+        CALL picking_up_passengers function for passengers_on_board
+        Call new_requests(passengers_on_board) and check for exit
+        If exit is True
+            BREAK
+        Call checking_for_requests(passengers_on_board) and check for exit
+        If exit is True
+            BREAK
+        Call changing_direction(current_floor, direction_of_travel) and update direction_of_travel
+        Call moving_lift(current_floor) and update current_floor
+RUN main lift function
+
+
+## LOOK
+FUNCTION input_file()
+    WHILE True
+        Initialize floor_requests as an empty dictionary
+        Initialize building_info as an empty dictionary
+        Prompt user to enter lift file name and strip whitespaces
+        If document ends with ".txt" assign as document
+            Else
+                Append ".txt" to document
+        TRY
+            OPEN the file (document)
+                FOR each line in the file
+                    Strip the line of whitespaces
+                    If the line starts with "#" or is empty
+                        CONTINUE
+                    If line contains "," and not ":"
+                        Split the line by ","
+                        Map the values to "num_floors" and "capacity"
+                        Store num_floors and capacity in building_info
+                        CONTINUE
+                    Split the line by ":"
+                    Strip the floor and store as ineteger
+                    Strip the requests and store as integer 
+                    Store the floor number and requests in floor_requests
+                PRINT "Building information:" (num_floors and capacity)
+                PRINT "Number of floors" (num_floors)
+                PRINT "Lift Capacity" (capacity)
+                PRINT "Floor requests:"
+                FOR floors and requests in floor_requests
+                    PRINT floor: requests
+                Else
+                    PRINT No requests.
+                RETURN building_info, floor_requests
+        EXCEPT FileNotFoundError
+            PRINT error message The file cannot be found. Please try again.
+        EXCEPT ValueError
+            PRINT error message Invalid file format, please try again.
+        EXCEPT Exception as e
+            PRINT error message with exception e
+
+FUNCTION dropping_passengers(current_floor, passengers_on_board, direction_of_travel, floor_requests, building_info)
+    Initiaise passengers_to_drop
+    Initialise passengers_on_board    
+    If there are passengers_to_drop:
+        PRINTDropping off passenger(s) at current floor
+        PRINT Going up/down 
+        PRINT Current floor
+        PRINT Capacity available
+        PRINT Current passengers on lift
+        PRINT Current floor requests 
+    RETURN passengers_on_board  
+
+FUNCTION picking_up_passengers(current_floor, passengers_on_board, floor_requests, max_capacity, direction_of_travel)
+    Initialise new_passengers as an empty list 
+    If current_floor is in the floor_requests
+        WHILE there are requests for the current floor and there is space on the lift 
+            POP the first passenger waiting at the current floor 
+            ADD passenger to passengers_on_board
+            ADD passenger to  new_passenger
+        If there are new_passengers
+            PRINT Picking up passenger(s) at current_floor
+            PRINT Current passengers on lift 
+            PRINT Remaining capacity   
+    RETURN passengers_on_board
+
+FUNCTION new_requests(current_floor, floor_requests, top_floor, passengers_on_board) 
+    If there are no more requests and no passengers on board
+        RETURN floor_requests, TRUE to exit
+    Prompt user_input to enter a floor for a new request 
+    PRINT  New user input
+    If user_input is exit 
+        PRINT Lift is stopping
+        RETURN floor_requests, TRUE to exit 
+    Else if user input is a digit
+        Assign input as a new floor request
+        If new floor request is current_floor
+            PRINT Passenger is already at current floor
+        Else if the floor added is within valid floor range
+            PRINT New request added: current_floor to new_floor
+            If current_floor is not in floor_requests
+                ADD new floor request to floor_requests
+            PRINT Current passengers on lift
+        Else
+            PRINT Invalid input. Please enter a floor between 1 and top_floor
+    Else
+        PRINT No new requests
+        PRINT Current passengers on lift
+    RETURN floor_requests, FALSE to continue running
+
+FUNCTION checking_for_requests(passengers_on_board, floor_requests)
+    RETURN TRUE if no more passengers on board/no more requests, FALSE otherwise
+
+FUNCTION changing_direction(current_floor, direction_of_travel, floor_requests, passengers_on_board)
+
+    Check for pickup above current floor
+    Check for pickup below current floor
+    Check for dropoff above current floor
+    Check for dropoff below current floor
+    If direction of travel is up and there is no pickup above or dropoff above 
+        Change direction of travel to down
+    Else if direction oftravel is down and there is no pickupbelow or dropoffbelow
+        Change direction of travel to up
+    RETURN direction_of_travel
+
+FUNCTION moving_lift(current_floor, direction_of_travel)
+    RETURN  an incrementation of one by current floor if direction is up. Else decreement
+    
+FUNCTION lift()
+    CALL building_info and floor_requests from input file
+    Assigne top_floor as number of floors
+    Assign bottom_floor as 1
+    SET current_floor as bottom_floor
+    SET default direction_of_travel to up
+    Initialise passengers_on_board as an empty list
+    WHILE True
+        CALL dropping_passengers function for passengers_on_board 
+        CALL picking_up_passengers function for passengers_on_board
+        Call floor_requests and check for exit
+        If exit is True:
+            BREAK
+        Clean up empty requests       
+        If there are no more requests, stop the lift
+            PRINT All requests fulfilled. Lift is now idle.
+            BREAK
+        CALL changing direction function
+        If there are are any requests or passengers on board
+            Call moving lift function
+RUN main lift function
+
+## MY_LIFT
+FUNCTION input_file()
+    WHILE True
+        Prompt user input for file name and strip whitespace
+        If file doesnt end with txt add it and assign file_name
+
+        If file path cannot be found
+            PRINT Error: file not found
+            CONTINUE
+        Initialise building_info and floor_requests
+        TRY
+            OPEN the file document
+                For each line in file 
+                    Strip the line of whitespaces  
+                    If the line starts with "#" or is empty
+                        CONTINUE
+                    If line contains "," and not ":"  
+                        Split the line by "," and map the values to "num_floors" and "capacity"
+                    Else
+                        Split floor and requests by ":"
+                        Store floor as integer for all requests and strip whitespaces
+            RETURN building_info and floor_requests
+        EXCEPT ValueError
+            PRINT Error: Invalid file format
+        EXCEPT Exception as e:
+            PRINT error message with exception e
+
+FUNCTION drop_passengers(current_floor, passengers, building_info) 
+    Initialise departing 
+    Initialise passengers 
+    If departing
+        PRINT Dropping off passenger(s) at floor current_floor
+    RETURN passengers
+
+
+FUNCTION pick_up_passengers(current_floor, passengers, floor_requests, max_capacity, direction)
+    If current_floor is in floor_requests
+        SORT floor_requests from current_floor based on direction
+        WHILE there are requests at current_floor and capacity
+            POP the first request from floor_requests from current_floor and add to passengers
+    RETURN passengers
+
+
+FUNCTION new_requests(current_floor, floor_requests, top_floor, passengers)
+    Prompt user_input Enter a floor strip whitespaces
+    If user_inputin lowercase is exit
+        RETURN floor_requests, True
+    Else if user_input is a digit
+        Add it to new_floor as an integer
+        If the request added is in valid floor range and not current_floor
+            Add floor to new_floor request
+    RETURN floor_requests, False
+
+
+FUNCTION change_direction(current_floor, direction, floor_requests, passengers)
+    Check for requests_above 
+    CHeck for requests_below 
+    If direction is up and there are no requests_above but there are requests_below
+        RETURN down
+    If direction is down and there are no requests_below but there are requests_above
+        RETURN up
+    RETURN direction
+
+
+FUNCTION move_lift(current_floor, direction)
+    RETURN  an incrementation of one by current floor if direction is up. Else decreement
+
+FUNCTION lift_system():
+    Read building_info and floor_requests from input_file
+    Assign top_floor as num_floor capacity as capacity
+    Assign default current_floor as 1 and direction as 1 and initialise passengers as empty
+    WHILE True
+        PRINT Lift at floor current_floor, going up/down
+        PRINT Current passengers
+        PRINT Requests on each floor      
+        CALL drop_passengers function
+        CALL pick_up_passengers function
+        CALL floor_requests and check for stop
+        If stop is True:
+            BREAK
+        If there are no more passengers or requests
+            PRINTAll requests fulfilled. Lift is idle
+            BREAK
+        CALL changing direction function
+        If there are are any requests or passengers on board
+            CALL moving lift function
+RUN lift system by using main block
+
+
