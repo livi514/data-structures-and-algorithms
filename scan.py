@@ -3,15 +3,14 @@ SCAN algorithm. This algorithm has the lift move in one direction and only
 changes direction when it reaches the bottom or top floors. It serves all requests
 while travelling in that direction
 '''
-import time
 
-'''
-input_file asks user to enter a lift file name and reads the file to get the building information and the floor requests. 
-Returns 
-    building_info: number of floors and lift capacity
-    floor_requests: floor numbers as keys and lists of requested floors as values.
-'''
 def input_file():
+    '''
+    input_file asks user to enter a lift file name and reads the file to get the building information and the floor requests. 
+    Returns 
+        building_info: number of floors and lift capacity
+        floor_requests: floor numbers as keys and lists of requested floors as values.
+    '''
     while True:
         floor_requests = {}
         building_info = {}
