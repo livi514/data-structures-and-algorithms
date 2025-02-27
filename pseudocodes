@@ -32,9 +32,9 @@ FUNCTION input_file()
                     PRINT No requests.
                 RETURN building_info, floor_requests
         EXCEPT FileNotFoundError
-            PRINT error message The file cannot be found. Please try again.
+            PRINT error message "The file cannot be found. Please try again."
         EXCEPT ValueError
-            PRINT error message Invalid file format, please try again.
+            PRINT error message "Invalid file format, please try again."
         EXCEPT Exception as e
             PRINT error message with exception e
 
@@ -160,9 +160,9 @@ FUNCTION input_file()
                     PRINT No requests.
                 RETURN building_info, floor_requests
         EXCEPT FileNotFoundError
-            PRINT error message The file cannot be found. Please try again.
+            PRINT error message "The file cannot be found. Please try again."
         EXCEPT ValueError
-            PRINT error message Invalid file format, please try again.
+            PRINT error message "Invalid file format, please try again."
         EXCEPT Exception as e
             PRINT error message with exception e
 
@@ -278,7 +278,7 @@ FUNCTION input_file()
                         Store floor as integer for all requests and strip whitespaces
             RETURN building_info and floor_requests
         EXCEPT ValueError
-            PRINT Error: Invalid file format
+            PRINT Error: "Invalid file format."
         EXCEPT Exception as e:
             PRINT error message with exception e
 
