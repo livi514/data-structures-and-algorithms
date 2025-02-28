@@ -43,7 +43,7 @@ This project's primary focus is on implementing and analyzing scheduling and sca
 - **`generalconsiderations.txt`**, **`lookconsiderations.txt`**, **`scanconsiderations.txt`** - Various notes and considerations on the approaches, challenges, and improvements made to the algorithms.
 
 ## Author
-This project was created by **Oghenemaro Emuophedaro**, Livia Banyai #Please add your names.
+This project was created by **Oghenemaro Emuophedaro**, **Livia Banyai** #Please add your names.
 
 ## License
 
