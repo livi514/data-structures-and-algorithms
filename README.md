@@ -30,18 +30,23 @@ This project's primary focus is on implementing and analyzing scheduling and sca
 - **`mylift.py`** - Core lift simulation script implementing queue-based scheduling, handling multiple lift requests dynamically.
 
 ### LOOK Algorithm Variants
-- **`look.py`** - Initial implementation of the LOOK scheduling algorithm applied to lift movement.
-- **`look v2.py` - `look v5 real time requests.py`** - Iterative improvements and optimizations of the LOOK algorithm for handling real-time lift requests and optimizing efficiency.
-- **`look v6 broken down functions.py`** - The **final and official** version of `look.py`, featuring modular, well-structured code optimized for real-time lift scheduling, including request prioritization and movement efficiency.
+- **`LOOK.py`** - Implementation of the LOOK scheduling algorithm applied to lift movement.Featuring modular functions for better maintainability, optimized movement, and real-time scheduling. 
 
 ### SCAN Algorithm Variants
-- **`scan.py`**, **`SCAN1.py`** - Implementations of the SCAN disk scheduling algorithm adapted for lift operations, optimizing floor visits to reduce overall travel time.
+- **`scan.py`** - Implements the SCAN algorithm, which moves the lift in a single direction, serving requests, and only reversing when it reaches the top or bottom floor.
 
 ### Documentation & Reports
 - **`specification.txt`** - Contains project specifications, detailing the goals, methodologies, and expected outcomes of the lift simulation.
 - **`simulationreport.txt`** - A detailed report analyzing the results of various scheduling simulations, comparing different algorithmic approaches.
 - **`generalconsiderations.txt`**, **`lookconsiderations.txt`**, **`scanconsiderations.txt`** - Various notes and considerations on the approaches, challenges, and improvements made to the algorithms.
 
+# How the Elevator System Works
+1. The system reads a lift configuration file, which includes:
+   - The number of floors in the building.
+   - The capacity of the lift.
+   - A list of requests from different floors.
+2. The algorithm processes these requests using either the **LOOK** or **SCAN** scheduling strategies.
+3. The lift moves in an optimized path, reducing unnecessary travel and ensuring efficiency.
 ## Author
 This project was created by **Oghenemaro Emuophedaro**, **Livia Banyai**, **Thalia Champ**, #Please add your names.
 
