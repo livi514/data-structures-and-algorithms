@@ -47,10 +47,11 @@ This project's primary focus is on implementing and analyzing scheduling and sca
    - A list of requests from different floors.
 2. The algorithm processes these requests using either the **LOOK** or **SCAN** scheduling strategies.
 3. The lift moves in an optimized path, reducing unnecessary travel and ensuring efficiency.
-## Author
+
+# Authors
 This project was created by **Oghenemaro Emuophedaro**, **Livia Banyai**, **Thalia Champ**, #Please add your names.
 
-## License
+
 
 
 
