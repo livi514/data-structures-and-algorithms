@@ -40,7 +40,7 @@ This project's primary focus is on implementing and analyzing scheduling and sca
 - **`simulationreport.txt`** - A detailed report analyzing the results of various scheduling simulations, comparing different algorithmic approaches.
 - **`generalconsiderations.txt`**, **`lookconsiderations.txt`**, **`scanconsiderations.txt`** - Various notes and considerations on the approaches, challenges, and improvements made to the algorithms.
 
-# How the Elevator System Works
+# How the Lift System Works
 1. The system reads a lift configuration file, which includes:
    - The number of floors in the building.
    - The capacity of the lift.
