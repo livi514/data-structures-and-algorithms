@@ -49,7 +49,7 @@ This project's primary focus is on implementing and analyzing scheduling and sca
 3. The lift moves in an optimized path, reducing unnecessary travel and ensuring efficiency.
 
 # Authors
-This project was created by **Oghenemaro Emuophedaro**, **Livia Banyai**, **Thalia Champ**, #Please add your names.
+This project was created by **Oghenemaro Emuophedaro**, **Livia Banyai**, **Thalia Champ**, and **Nafha Mohamed Hamdhi**.
 
 
 
