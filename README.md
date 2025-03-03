@@ -16,12 +16,11 @@ This project's primary focus is on implementing and analyzing scheduling and sca
 
 ## Usage
 
-- Open `Data_structuers.ipynb` in Jupyter Notebook to explore structured implementations and algorithmic analysis.
 - Run Python scripts using:
  ```sh
   python script_name.py
  ```
-- Refer to text files for detailed documentation, considerations, and reports on each approach.
+- Refer to respective files for detailed documentation, considerations, and reports on each approach.
 
 ## File Descriptions
 
