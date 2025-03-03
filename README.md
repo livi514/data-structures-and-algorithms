@@ -26,7 +26,6 @@ This project's primary focus is on implementing and analyzing scheduling and sca
 ## File Descriptions
 
 ### Core Implementations
-- **`Data_structuers.ipynb`** - Jupyter notebook containing structured implementations and analysis of the lift scheduling algorithms.
 - **`mylift.py`** - Core lift simulation script implementing queue-based scheduling, handling multiple lift requests dynamically.
 
 ### LOOK Algorithm Variants
@@ -38,7 +37,8 @@ This project's primary focus is on implementing and analyzing scheduling and sca
 ### Documentation & Reports
 - **`specification.txt`** - Contains project specifications, detailing the goals, methodologies, and expected outcomes of the lift simulation.
 - **`simulationreport.txt`** - A detailed report analyzing the results of various scheduling simulations, comparing different algorithmic approaches.
-- **`generalconsiderations.txt`**, **`lookconsiderations.txt`**, **`scanconsiderations.txt`** - Various notes and considerations on the approaches, challenges, and improvements made to the algorithms.
+-**`other documents`** - SUpporting documents required including GEN AI statement, Group collabration statement and presentation_link.txt
+
 
 # How the Lift System Works
 1. The system reads a lift configuration file, which includes:
